@@ -1,6 +1,4 @@
 ---
 conan_configuration_sources:
-  - url: https://github.com/ccdc-opensource/conan-ccdc-common-configuration.git
-    type: git
-    args: -b main
+  - url: https://github.com/ccdc-opensource/conan-ccdc-common-configuration/archive/refs/heads/main.zip
     
