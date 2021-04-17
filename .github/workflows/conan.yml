@@ -56,10 +56,11 @@ jobs:
         with:
           python-version: "3.8"
       - name: Install Conan
+        run: pip install git+https://github.com/rockdreamer/bincrafters-package-tools.git@d26cd6105491d727e72eb577753ee8b588485f8e
+      - name: Prepare environment
         env:
           BPT_MATRIX: ${{toJson(matrix.config)}}
         run: |
-          pip install git+https://github.com/rockdreamer/bincrafters-package-tools.git@d26cd6105491d727e72eb577753ee8b588485f8e
           # remove newlines from matrix first
           matrix=$(echo ${BPT_MATRIX})
           bincrafters-package-tools prepare-env --platform gha --config "${matrix}"
