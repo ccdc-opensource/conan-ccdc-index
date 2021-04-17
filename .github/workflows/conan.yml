@@ -31,7 +31,7 @@ jobs:
           python-version: "3.8"
       - name: Install Package Tools
         run: |
-          pip install git+https://github.com/rockdreamer/bincrafters-package-tools.git@836dae7c8cc074dab90bf659e6323188bf92be0a
+          pip install git+https://github.com/rockdreamer/bincrafters-package-tools.git@d30bce799f48fb196b7cdca1b4397d8d8e08730e
           conan user
       - name: Generate Job Matrix
         id: set-matrix
@@ -56,7 +56,7 @@ jobs:
         with:
           python-version: "3.8"
       - name: Install Conan
-        run: pip install git+https://github.com/rockdreamer/bincrafters-package-tools.git@836dae7c8cc074dab90bf659e6323188bf92be0a
+        run: pip install git+https://github.com/rockdreamer/bincrafters-package-tools.git@d30bce799f48fb196b7cdca1b4397d8d8e08730e
       - name: Prepare environment
         env:
           BPT_MATRIX: ${{toJson(matrix.config)}}
