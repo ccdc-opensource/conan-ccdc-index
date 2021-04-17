@@ -31,7 +31,7 @@ jobs:
           python-version: "3.8"
       - name: Install Package Tools
         run: |
-          pip install git+https://github.com/rockdreamer/bincrafters-package-tools.git@5eae67d6deabfcf1732b0dbd9aeaac08ec586ce9
+          pip install git+https://github.com/rockdreamer/bincrafters-package-tools.git@d26cd6105491d727e72eb577753ee8b588485f8e
           conan user
       - name: Generate Job Matrix
         id: set-matrix
@@ -59,7 +59,7 @@ jobs:
         env:
           BPT_MATRIX: ${{toJson(matrix.config)}}
         run: |
-          pip install git+https://github.com/rockdreamer/bincrafters-package-tools.git@5eae67d6deabfcf1732b0dbd9aeaac08ec586ce9
+          pip install git+https://github.com/rockdreamer/bincrafters-package-tools.git@d26cd6105491d727e72eb577753ee8b588485f8e
           # remove newlines from matrix first
           matrix=$(echo ${BPT_MATRIX})
           bincrafters-package-tools prepare-env --platform gha --config "${matrix}"
