@@ -37,7 +37,6 @@ jobs:
         id: set-matrix
         env:
           splitByBuildTypes: ${{ env.splitByBuildTypes }}
-          CONAN_CONFIG_URL: https://github.com/ccdc-opensource/conan-ccdc-common-configuration/archive/refs/heads/main.zip
         run: |
           MATRIX=$(bincrafters-package-tools generate-ci-jobs --platform gha)
           echo "${MATRIX}"
@@ -71,5 +70,6 @@ jobs:
         env:
           CONAN_LOGIN_USERNAME: ${{ secrets.CONAN_LOGIN_USERNAME }}
           CONAN_PASSWORD: ${{ secrets.CONAN_PASSWORD }}
+          CONAN_CONFIG_URL: https://github.com/ccdc-opensource/conan-ccdc-common-configuration/archive/refs/heads/main.zip
         run: |
           bincrafters-package-tools --auto
