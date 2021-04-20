@@ -37,6 +37,7 @@ jobs:
         id: set-matrix
         env:
           splitByBuildTypes: ${{ env.splitByBuildTypes }}
+          CONAN_CONFIG_URL: https://github.com/ccdc-opensource/conan-ccdc-common-configuration/archive/refs/heads/main.zip
         run: |
           MATRIX=$(bincrafters-package-tools generate-ci-jobs --platform gha)
           echo "${MATRIX}"
@@ -60,6 +61,7 @@ jobs:
       - name: Prepare environment
         env:
           BPT_MATRIX: ${{toJson(matrix.config)}}
+          CONAN_CONFIG_URL: https://github.com/ccdc-opensource/conan-ccdc-common-configuration/archive/refs/heads/main.zip
         run: |
           # remove newlines from matrix first
           matrix=$(echo ${BPT_MATRIX})
