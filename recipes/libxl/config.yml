@@ -1,0 +1,7 @@
+versions:
+  "3.8.2.0":
+    folder: all
+build_types:
+  - Release
+  - Debug
+needs_artifactory_api_key: true
