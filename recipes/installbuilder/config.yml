@@ -1,0 +1,5 @@
+versions:
+  "21.9.0":
+    folder: all
+build_types:
+  - Release
