@@ -1,0 +1,29 @@
+sources:
+  "5.15.8":
+    url:
+      - "https://artifactory.ccdc.cam.ac.uk/artifactory/ccdc-3rd-party-sources/qt-everywhere-src-5.15.8.tar.xz"
+    sha256: "3cb4596933117905e68d434c9eba77532f4e77e61893335836b5193329cf2211"
+patches:
+  "5.15.8":
+    - patch_file: "patches/aa2a39dea5.diff"
+      base_path: "qt5/qtbase"
+    - patch_file: "patches/patch-qtbase-crystalidea-qt-build-tools-5.15.7.diff"
+      base_path: "qt5/qtbase"
+    - patch_file: "patches/c72097e.diff"
+      base_path: "qt5/qtwebengine"
+    - patch_file: "patches/patch-qtwebengine_add_cross_compile.diff"
+      base_path: "qt5/qtwebengine"
+    - patch_file: "patches/patch-qtwebengine_add_qpainter_header.diff"
+      base_path: "qt5/qtwebengine"
+    - patch_file: "patches/patch-qtwebengine_chromium_static_page_size.diff"
+      base_path: "qt5/qtwebengine"
+    - patch_file: "patches/patch-qtwebengine_gn_host_cpu_arm64.diff"
+      base_path: "qt5/qtwebengine"
+    - patch_file: "patches/patch-qtwebengine_gn_verbose_build.diff"
+      base_path: "qt5/qtwebengine"
+    - patch_file: "patches/patch-qtwebengine_shrink_to_fit.diff"
+      base_path: "qt5/qtwebengine"
+    - patch_file: "patches/patch-qtwebengine_SkRasterPipeline_opts.h.diff"
+      base_path: "qt5/qtwebengine"
+    - patch_file: "patches/fix-macdeployqt.diff"
+      base_path: "qt5/qttools"

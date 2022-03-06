@@ -1,0 +1,5 @@
+versions:
+  "5.15.8":
+    folder: all
+build_types:
+  - Release

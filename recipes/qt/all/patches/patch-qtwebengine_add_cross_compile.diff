@@ -1,0 +1,15 @@
+From https://bugreports.qt.io/browse/QTBUG-85279?focusedCommentId=562355&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#comment-562355
+
+diff --git a/src/buildtools/config/mac_osx.pri b/src/buildtools/config/mac_osx.pri
+index b53f917..28b2e65 100644
+--- a/src/buildtools/config/mac_osx.pri
++++ b/src/buildtools/config/mac_osx.pri
+@@ -36,3 +36,8 @@ gn_args += \
+     use_external_popup_menu=false \
+     angle_enable_vulkan=false
+ 
++
++cross_compile {
++    GN_TARGET_CPU = $$gnArch($$QT_ARCH)
++    gn_args += target_cpu=\"$$GN_TARGET_CPU\"
++}
