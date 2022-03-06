@@ -1,0 +1,15 @@
+---
+source_repository: public-conan-center
+versions:
+  - 1.10.2
+build_types:
+  - Release
+platform_combinations:
+  - build: centos7-gcc10-x86_64
+    target: centos7-gcc10-x86_64
+  # - build: ubuntu20-gcc10-x86_64
+  #   target: ubuntu20-gcc10-x86_64
+  - build: macos11-xcode13-x86_64
+    target: macos11-xcode13-x86_64
+  - build: win2019-vs2019-x86_64
+    target: win2019-vs2019-x86_64

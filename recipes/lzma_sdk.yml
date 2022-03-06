@@ -1,0 +1,9 @@
+---
+source_repository: public-conan-center
+versions:
+  - 9.20
+build_types:
+  - Release
+platform_combinations:
+  - build: win2019-vs2019-x86_64
+    target: win2019-vs2019-x86_64
