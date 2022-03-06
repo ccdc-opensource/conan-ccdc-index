@@ -1,0 +1,213 @@
+Patches by https://github.com/crystalidea/qt-build-tools/
+
+diff --git a/mkspecs/common/msvc-desktop.conf b/mkspecs/common/msvc-desktop.conf
+index f5d12f4..7616bd8 100644
+--- a/mkspecs/common/msvc-desktop.conf
++++ b/mkspecs/common/msvc-desktop.conf
+@@ -100,7 +100,7 @@ QMAKE_EXTENSION_STATICLIB = lib
+ 
+ QMAKE_LIBS              =
+ QMAKE_LIBS_GUI          = gdi32.lib comdlg32.lib oleaut32.lib imm32.lib winmm.lib ws2_32.lib ole32.lib uuid.lib user32.lib advapi32.lib
+-QMAKE_LIBS_NETWORK      = ws2_32.lib
++QMAKE_LIBS_NETWORK      = ws2_32.lib user32.lib gdi32.lib
+ QMAKE_LIBS_OPENGL       = glu32.lib opengl32.lib gdi32.lib user32.lib
+ QMAKE_LIBS_OPENGL_ES2   = gdi32.lib user32.lib
+ QMAKE_LIBS_OPENGL_ES2_DEBUG = gdi32.lib user32.lib
+diff --git a/src/corelib/global/qoperatingsystemversion.cpp b/src/corelib/global/qoperatingsystemversion.cpp
+index 1a76352..3d55732 100644
+--- a/src/corelib/global/qoperatingsystemversion.cpp
++++ b/src/corelib/global/qoperatingsystemversion.cpp
+@@ -470,6 +470,10 @@ const QOperatingSystemVersion QOperatingSystemVersion::MacOSBigSur = [] {
+         return QOperatingSystemVersion(QOperatingSystemVersion::MacOS, 10, 16);
+ }();
+ 
++const QOperatingSystemVersion QOperatingSystemVersion::MacOSMonterey = [] {
++        return QOperatingSystemVersion(QOperatingSystemVersion::MacOS, 12, 0);
++}();
++
+ /*!
+     \variable QOperatingSystemVersion::AndroidJellyBean
+     \brief a version corresponding to Android Jelly Bean (version 4.1, API level 16).
+diff --git a/src/corelib/global/qoperatingsystemversion.h b/src/corelib/global/qoperatingsystemversion.h
+index abd818a..69e5041 100644
+--- a/src/corelib/global/qoperatingsystemversion.h
++++ b/src/corelib/global/qoperatingsystemversion.h
+@@ -73,6 +73,7 @@ public:
+     static const QOperatingSystemVersion MacOSMojave;
+     static const QOperatingSystemVersion MacOSCatalina;
+     static const QOperatingSystemVersion MacOSBigSur;
++    static const QOperatingSystemVersion MacOSMonterey;
+ 
+     static const QOperatingSystemVersion AndroidJellyBean;
+     static const QOperatingSystemVersion AndroidJellyBean_MR1;
+diff --git a/src/plugins/platforms/cocoa/qiosurfacegraphicsbuffer.h b/src/plugins/platforms/cocoa/qiosurfacegraphicsbuffer.h
+index ee7ac5c..7c1aaa8 100644
+--- a/src/plugins/platforms/cocoa/qiosurfacegraphicsbuffer.h
++++ b/src/plugins/platforms/cocoa/qiosurfacegraphicsbuffer.h
+@@ -40,11 +40,11 @@
+ #ifndef QIOSURFACEGRAPHICSBUFFER_H
+ #define QIOSURFACEGRAPHICSBUFFER_H
+ 
++#include <CoreGraphics/CGColorSpace.h>
++
+ #include <qpa/qplatformgraphicsbuffer.h>
+ #include <private/qcore_mac_p.h>
+ 
+-#include <CoreGraphics/CGColorSpace.h>
+-
+ QT_BEGIN_NAMESPACE
+ 
+ class QIOSurfaceGraphicsBuffer : public QPlatformGraphicsBuffer
+diff --git a/src/plugins/styles/mac/qmacstyle_mac.mm b/src/plugins/styles/mac/qmacstyle_mac.mm
+index 58eb773..dd2e578 100644
+--- a/src/plugins/styles/mac/qmacstyle_mac.mm
++++ b/src/plugins/styles/mac/qmacstyle_mac.mm
+@@ -468,7 +468,11 @@ static bool setupSlider(NSSlider *slider, const QStyleOptionSlider *sl)
+     if (sl->minimum >= sl->maximum)
+         return false;
+ 
+-    slider.frame = sl->rect.toCGRect();
++    // NSSlider seems to cache values based on tracking and the last layout of the
++    // NSView, resulting in incorrect knob rects that break the interaction with
++    // multiple sliders. So completely reinitialize the slider.
++    [slider initWithFrame:sl->rect.toCGRect()];
++
+     slider.minValue = sl->minimum;
+     slider.maxValue = sl->maximum;
+     slider.intValue = sl->sliderPosition;
+@@ -498,6 +502,14 @@ static bool setupSlider(NSSlider *slider, const QStyleOptionSlider *sl)
+     // the cell for its metrics and to draw itself.
+     [slider layoutSubtreeIfNeeded];
+ 
++    if (sl->state & QStyle::State_Sunken) {
++        const CGRect knobRect = [slider.cell knobRectFlipped:slider.isFlipped];
++        CGPoint pressPoint;
++        pressPoint.x = CGRectGetMidX(knobRect);
++        pressPoint.y = CGRectGetMidY(knobRect);
++        [slider.cell startTrackingAt:pressPoint inView:slider];
++    }
++
+     return true;
+ }
+ 
+@@ -844,6 +856,8 @@ static QSize qt_aqua_get_known_size(QStyle::ContentsType ct, const QWidget *widg
+             return ret;
+     }
+ 
++    const bool isBigSurOrAbove = QOperatingSystemVersion::current() >= QOperatingSystemVersion::MacOSBigSur;
++
+     if (ct == QStyle::CT_CustomBase && widg) {
+ #if QT_CONFIG(pushbutton)
+         if (qobject_cast<const QPushButton *>(widg))
+@@ -1038,6 +1052,8 @@ static QSize qt_aqua_get_known_size(QStyle::ContentsType ct, const QWidget *widg
+                     w = qt_mac_aqua_get_metric(HSliderHeight);
+                     if (sld->tickPosition() != QSlider::NoTicks)
+                         w += qt_mac_aqua_get_metric(HSliderTickHeight);
++                    else if (isBigSurOrAbove)
++                        w += 3;
+                 } else {
+                     w = qt_mac_aqua_get_metric(VSliderWidth);
+                     if (sld->tickPosition() != QSlider::NoTicks)
+@@ -3708,6 +3724,9 @@ static QPixmap darkenPixmap(const QPixmap &pixmap)
+ 
+             const bool isEnabled = btn->state & State_Enabled;
+             const bool isPressed = btn->state & State_Sunken;
++            const bool isDefault = (btn->features & QStyleOptionButton::DefaultButton)
++                                   || (btn->features & QStyleOptionButton::AutoDefaultButton
++                                       && d->autoDefaultButton == btn->styleObject);
+             const bool isHighlighted = isActive &&
+                     ((btn->state & State_On)
+                      || (btn->features & QStyleOptionButton::DefaultButton)
+@@ -3727,6 +3746,32 @@ static QPixmap darkenPixmap(const QPixmap &pixmap)
+             pb.enabled = isEnabled;
+             [pb highlight:isPressed];
+             pb.state = isHighlighted && !isPressed ? NSOnState : NSOffState;
++
++            if (QOperatingSystemVersion::current() >= QOperatingSystemVersion::MacOSMonterey) {
++                // Starting from macOS Monterey buttons look/work slightly differently. First, the
++                // the default/autodefault buttons. Setting the state to ON is enough to make
++                // NSButtonPushOnPushOf type of buttons to use the accent color. To make it look
++                // recessed/pressed, we have to combine _both_ the state ON, and highlight:YES
++                // (previously, we were simply using highlight:YES and state OFF for such case).
++                // Non-default buttons work differently - they don't use accent color, but
++                // instead either darker or lighter bezel when pressed(depending on the theme),
++                // which is simply activated by highlight:YES (those buttons are not push on/push
++                // off type anymore, so seem to ignore the state).
++
++                // We only adust those:
++                if (ct == QMacStylePrivate::Button_PushButton) {
++                    if (isDefault)
++                        pb.state = isActive ? NSControlStateValueOn : NSControlStateValueOff;
++                    else {
++                        pb.buttonType = NSButtonTypeMomentaryPushIn;
++                        if (btn->state & State_On)
++                            [pb highlight:YES];
++                    }
++                }
++                // Note, for NSButtonTypeMomentaryPushIn we'll have to later adjust the text color
++                // accordingly, see CE_PushButtonLabel :(
++            }
++
+             d->drawNSViewInRect(pb, frameRect, p, ^(CGContextRef, const CGRect &r) {
+                 [pb.cell drawBezelWithFrame:r inView:pb.superview];
+             });
+@@ -3771,15 +3816,23 @@ static QPixmap darkenPixmap(const QPixmap &pixmap)
+ 
+             const auto ct = cocoaControlType(&btn, w);
+ 
++            const bool isDefault = (btn.features & QStyleOptionButton::DefaultButton && !d->autoDefaultButton)
++                                    || d->autoDefaultButton == btn.styleObject;
++
+             if (!hasMenu && ct != QMacStylePrivate::Button_SquareButton) {
+-                if (isPressed
+-                    || (isActive && isEnabled
+-                        && ((btn.state & State_On)
+-                            || ((btn.features & QStyleOptionButton::DefaultButton) && !d->autoDefaultButton)
+-                            || d->autoDefaultButton == btn.styleObject)))
++                if (isPressed || (isActive && isEnabled
++                                  && ((btn.state & State_On) || isDefault))) // Hello, LISP!
+                 btn.palette.setColor(QPalette::ButtonText, Qt::white);
+             }
+ 
++            if (!isDarkMode() && QOperatingSystemVersion::current() >= QOperatingSystemVersion::MacOSMonterey) {
++                if (!isDefault) {
++                    // Yes, it's a gray button of type NSButtonTypeMomentaryPushIn (see CE_PushButtonBevel above),
++                    // white text (if set in the previous statement) would be invisible.
++                    btn.palette.setColor(QPalette::ButtonText, Qt::black);
++                }
++            }
++
+             if ((!hasIcon && !hasMenu) || (hasIcon && !hasText)) {
+                 QCommonStyle::drawControl(ce, &btn, p, w);
+             } else {
+diff --git a/src/widgets/widgets/qslider.cpp b/src/widgets/widgets/qslider.cpp
+index bbfce61..5bf01d1 100644
+--- a/src/widgets/widgets/qslider.cpp
++++ b/src/widgets/widgets/qslider.cpp
+@@ -153,6 +153,13 @@ void QSlider::initStyleOption(QStyleOptionSlider *option) const
+     option->pageStep = d->pageStep;
+     if (d->orientation == Qt::Horizontal)
+         option->state |= QStyle::State_Horizontal;
++
++    if (d->pressedControl) {
++        option->activeSubControls = d->pressedControl;
++        option->state |= QStyle::State_Sunken;
++    } else {
++        option->activeSubControls = d->hoverControl;
++    }
+ }
+ 
+ bool QSliderPrivate::updateHoverControl(const QPoint &pos)
+@@ -315,12 +322,6 @@ void QSlider::paintEvent(QPaintEvent *)
+     opt.subControls = QStyle::SC_SliderGroove | QStyle::SC_SliderHandle;
+     if (d->tickPosition != NoTicks)
+         opt.subControls |= QStyle::SC_SliderTickmarks;
+-    if (d->pressedControl) {
+-        opt.activeSubControls = d->pressedControl;
+-        opt.state |= QStyle::State_Sunken;
+-    } else {
+-        opt.activeSubControls = d->hoverControl;
+-    }
+ 
+     style()->drawComplexControl(QStyle::CC_Slider, &opt, &p, this);
+ }

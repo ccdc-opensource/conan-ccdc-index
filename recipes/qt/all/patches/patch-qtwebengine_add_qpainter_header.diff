@@ -1,0 +1,14 @@
+From https://bugreports.qt.io/browse/QTBUG-85279?focusedCommentId=562355&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#comment-562355
+
+diff --git a/src/pdfwidgets/qpdfview.cpp b/src/pdfwidgets/qpdfview.cpp
+index 35e3686..250dee4 100644
+--- a/src/pdfwidgets/qpdfview.cpp
++++ b/src/pdfwidgets/qpdfview.cpp
+@@ -45,6 +45,7 @@
+ #include <QScreen>
+ #include <QScrollBar>
+ #include <QScroller>
++#include <QPainter>
+ 
+ QT_BEGIN_NAMESPACE
+ 

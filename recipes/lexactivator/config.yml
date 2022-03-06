@@ -1,0 +1,4 @@
+versions:
+  "3.14.7":
+    folder: all
+additional_profiles_for_all_platforms: static-cryptlex

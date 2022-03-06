@@ -1,0 +1,15 @@
+versions:
+  "2.11.1":
+    folder: all
+build_types:
+  - Release
+needs_artifactory_api_key: true
+platform_combinations:
+  - build: centos7-gcc10-x86_64
+    target: centos7-gcc10-x86_64
+  # - build: ubuntu20-gcc10-x86_64
+  #   target: ubuntu20-gcc10-x86_64
+  - build: macos11-xcode13-x86_64
+    target: macos11-xcode13-x86_64
+  - build: win2019-vs2019-x86_64
+    target: win2019-vs2019-x86_64

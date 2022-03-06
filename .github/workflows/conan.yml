@@ -31,7 +31,7 @@ jobs:
           python-version: "3.8"
       - name: Install Package Tools
         run: |
-          pip install git+https://github.com/rockdreamer/bincrafters-package-tools.git@d26cd6105491d727e72eb577753ee8b588485f8e
+          pip install https://github.com/rockdreamer/bincrafters-package-tools/archive/refs/heads/1382.zip
           conan user
       - name: Generate Job Matrix
         id: set-matrix
@@ -56,10 +56,12 @@ jobs:
         with:
           python-version: "3.8"
       - name: Install Conan
+        run: pip install https://github.com/rockdreamer/bincrafters-package-tools/archive/refs/heads/1382.zip
+      - name: Prepare environment
         env:
           BPT_MATRIX: ${{toJson(matrix.config)}}
+          CONAN_CONFIG_URL: https://github.com/ccdc-opensource/conan-ccdc-common-configuration/archive/refs/heads/main.zip
         run: |
-          pip install git+https://github.com/rockdreamer/bincrafters-package-tools.git@d26cd6105491d727e72eb577753ee8b588485f8e
           # remove newlines from matrix first
           matrix=$(echo ${BPT_MATRIX})
           bincrafters-package-tools prepare-env --platform gha --config "${matrix}"
@@ -68,5 +70,6 @@ jobs:
         env:
           CONAN_LOGIN_USERNAME: ${{ secrets.CONAN_LOGIN_USERNAME }}
           CONAN_PASSWORD: ${{ secrets.CONAN_PASSWORD }}
+          CONAN_CONFIG_URL: https://github.com/ccdc-opensource/conan-ccdc-common-configuration/archive/refs/heads/main.zip
         run: |
           bincrafters-package-tools --auto

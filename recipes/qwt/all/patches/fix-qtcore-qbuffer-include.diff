@@ -1,0 +1,13 @@
+diff --git a/playground/graphicscale/MainWindow.cpp b/playground/graphicscale/MainWindow.cpp
+index e74b470..4920e7b 100644
+--- a/playground/graphicscale/MainWindow.cpp
++++ b/playground/graphicscale/MainWindow.cpp
+@@ -11,7 +11,7 @@
+ #include <QLayout>
+ #include <QLabel>
+ #include <QFileDialog>
+-#include <QBuffer>
++#include <QtCore/QBuffer>
+ #include <QPainter>
+ #include <QSvgGenerator>
+ #include <QStatusBar>
