@@ -1,5 +1,4 @@
 ---
-source_repository: public-conan-center
 versions:
   # used by some build dependencies
   - 2.4.4

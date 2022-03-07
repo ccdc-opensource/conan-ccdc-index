@@ -1,5 +1,4 @@
 ---
-source_repository: public-conan-center
 versions:
   - 3.21.4
   - 3.22.0

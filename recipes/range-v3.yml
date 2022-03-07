@@ -1,5 +1,4 @@
 ---
-source_repository: public-conan-center
 versions:
   - 0.11.0
 header_only: true

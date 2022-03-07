@@ -1,6 +1,5 @@
 ---
 # We use this for building boost, so only bring it in on ubuntu where we 'build' boost headers
-source_repository: public-conan-center
 versions:
   - 4.5.0
 build_types:

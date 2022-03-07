@@ -1,5 +1,4 @@
 ---
-source_repository: public-conan-center
 versions:
   - 2.5.22
 build_types:

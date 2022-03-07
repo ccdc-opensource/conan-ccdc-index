@@ -1,0 +1,7 @@
+---
+# Recipes are fetched from this repository (mirror of conan-center-index)
+source_repository: public-conan-center
+build_types:
+  - Release
+  - Debug
+  - RelWithDebInfo

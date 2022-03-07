@@ -1,6 +1,5 @@
 ---
 # this package is a build dependency and as such can't be overriden
-source_repository: public-conan-center
 versions:
   - 0.59.1
   - 0.59.2
