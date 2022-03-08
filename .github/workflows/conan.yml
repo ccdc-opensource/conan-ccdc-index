@@ -1,3 +1,5 @@
+---
+# yamllint disable-line rule:truthy
 on: [push, pull_request]
 
 # bincrafters-conventions:gha-workflow-version:10

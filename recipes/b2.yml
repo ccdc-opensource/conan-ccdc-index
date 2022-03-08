@@ -1,10 +1,8 @@
 ---
 # We use this for building boost, so only bring it in on ubuntu where we 'build' boost headers
-source_repository: public-conan-center
 versions:
   - 4.5.0
 build_types:
   - Release
-platform_combinations:
-  - build: ubuntu2004-gcc10-x86_64
-    target: ubuntu2004-gcc10-x86_64
+limit_to_platform_combinations:
+  - native-ubuntu20-gcc10-x86_64

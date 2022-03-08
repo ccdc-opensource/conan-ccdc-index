@@ -1,3 +1,8 @@
+---
 versions:
-  "1.1.1k":
-    folder: all
+  # 3.0.x releases
+  3.0.1:
+    folder: "3.x.x"
+  # 1.1.1x releases
+  1.1.1m:
+    folder: "1.x.x"

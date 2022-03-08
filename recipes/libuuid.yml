@@ -1,11 +1,7 @@
 ---
-source_repository: public-conan-center
 versions:
   - 1.0.3
-platform_combinations:
-  - build: centos7-gcc10-x86_64
-    target: centos7-gcc10-x86_64
-  - build: ubuntu20-gcc10-x86_64
-    target: ubuntu20-gcc10-x86_64
-  - build: macos11-xcode13-x86_64
-    target: macos11-xcode13-x86_64
+limit_to_platform_combinations:
+  - native-centos7-gcc10-x86_64
+  - native-ubuntu20-gcc10-x86_64
+  - native-macos11-xcode13-x86_64

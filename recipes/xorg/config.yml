@@ -1,10 +1,9 @@
+---
 versions:
   "system":
     folder: all
 build_types:
   - Release
-platform_combinations:
-  - build: centos7-gcc10-x86_64
-    target: centos7-gcc10-x86_64
-  - build: ubuntu20-gcc10-x86_64
-    target: ubuntu20-gcc10-x86_64
+limit_to_platform_combinations:
+  - native-centos7-gcc10-x86_64
+  - native-ubuntu20-gcc10-x86_64

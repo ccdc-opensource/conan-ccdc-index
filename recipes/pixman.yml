@@ -1,8 +1,6 @@
 ---
-source_repository: public-conan-center
 versions:
   - 0.40.0
 build_types:
   - Release
   - Debug
-

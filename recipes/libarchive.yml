@@ -1,5 +1,4 @@
 ---
-source_repository: public-conan-center
 versions:
   - 3.5.1
 use_release_zlib_profile: true

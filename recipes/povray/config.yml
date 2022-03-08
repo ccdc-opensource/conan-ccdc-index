@@ -1,17 +1,12 @@
+---
 versions:
   "3.7.0.8":
     folder: all
-macos_deployment_target: 10.13
-custom_profiles:
-  - povray-options
+macos_deployment_target: "10.13"
+additional_profiles_for_all_platform_combinations: povray-options
 build_types:
   - Release
-platform_combinations:
-  - build: centos7-gcc10-x86_64
-    target: centos7-gcc10-x86_64
-  # - build: ubuntu20-gcc10-x86_64
-  #   target: ubuntu20-gcc10-x86_64
-  - build: macos11-xcode13-x86_64
-    target: macos11-xcode13-x86_64
-  - build: win2019-vs2019-x86_64
-    target: win2019-vs2019-x86_64
+limit_to_platform_combinations:
+  - native-centos7-gcc10-x86_64
+  - native-macos11-xcode13-x86_64
+  - native-win2019-vs2019-x86_64
