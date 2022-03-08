@@ -4,4 +4,3 @@ versions:
 build_types:
   - Release
   - Debug
-

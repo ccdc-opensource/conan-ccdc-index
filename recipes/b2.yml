@@ -4,6 +4,5 @@ versions:
   - 4.5.0
 build_types:
   - Release
-platform_combinations:
-  - build: ubuntu2004-gcc10-x86_64
-    target: ubuntu2004-gcc10-x86_64
+limit_to_platform_combinations:
+  - native-ubuntu20-gcc10-x86_64
