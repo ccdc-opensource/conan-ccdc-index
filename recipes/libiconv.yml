@@ -2,4 +2,6 @@
 versions:
   - 1.16
 # see https://github.com/conan-io/conan/issues/6514
-workaround_autotools_windows_debug_issue: true
+# Sets CONAN_CPU_COUNT='1' in environment for debug builds
+# was called workaround_autotools_windows_debug_issue
+force_single_cpu_core_for_debug_builds: true
