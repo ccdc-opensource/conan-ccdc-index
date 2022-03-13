@@ -5,4 +5,4 @@ versions:
     folder: "3.x.x"
   # 1.1.1x releases
   1.1.1m:
-    folder: "1.x.x"
+    folder: "all"

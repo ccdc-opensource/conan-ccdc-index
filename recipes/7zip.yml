@@ -1,6 +1,6 @@
 ---
 versions:
-  - 19.00
+  - "19.00"
 build_types:
   - Release
 limit_to_platform_combinations:

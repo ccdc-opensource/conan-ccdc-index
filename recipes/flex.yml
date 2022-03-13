@@ -3,7 +3,6 @@ versions:
   - 2.6.4
 build_types:
   - Release
-platform_combinations:
 limit_to_platform_combinations:
   - native-centos7-gcc10-x86_64
   - native-ubuntu20-gcc10-x86_64
