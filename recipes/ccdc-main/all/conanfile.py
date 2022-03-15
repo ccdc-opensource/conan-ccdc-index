@@ -8,7 +8,6 @@ from conans.errors import ConanInvalidConfiguration
 
 class CCDCMainConan(ConanFile):
     name = "ccdc-main"
-    version = '2021.0.0'
     description = "Dependencies of main repository in CCDC"
     homepage = "https://ccdc.cam.ac.uk/"
     url = "https://github.com/conan-io/conan-center-index"
