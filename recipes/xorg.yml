@@ -1,7 +1,6 @@
 ---
 versions:
-  "system":
-    folder: all
+  - system
 build_types:
   - Release
 limit_to_platform_combinations:

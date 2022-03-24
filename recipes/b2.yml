@@ -1,8 +1,10 @@
 ---
 # We use this for building boost, so only bring it in on ubuntu where we 'build' boost headers
 versions:
-  - 4.5.0
+  - 4.8.2
 build_types:
   - Release
 limit_to_platform_combinations:
   - native-ubuntu20-gcc10-x86_64
+  - native-macos12-xcode13-armv8
+

@@ -5,7 +5,6 @@ from conans.errors import ConanInvalidConfiguration
 
 class ConanLexActivator(ConanFile):
     name = "lexactivator"
-    # version = '3.14.7'
     description = "LexActivator licensing library"
     url = "https://app.cryptlex.com/downloads"
     homepage = "https://cryptlex.com/"

@@ -19,6 +19,10 @@ class CCDCConanSqlite3(ConanFile):
         "shared": [True, False],
         "fPIC": [True, False],
         "threadsafe": [0, 1, 2],
+# CCDC Additions
+        "enable_null_trim": [True, False],
+        "max_column": "ANY",
+#
         "enable_column_metadata": [True, False],
         "enable_dbstat_vtab": [True, False],
         "enable_explain_comments": [True, False],
@@ -39,13 +43,16 @@ class CCDCConanSqlite3(ConanFile):
         "max_blob_size": "ANY",
         "build_executable": [True, False],
         "enable_default_vfs": [True, False],
-        "enable_null_trim": [True, False],
-        "max_column": "ANY",
+        "enable_dbpage_vtab": [True, False],
     }
     default_options = {
         "shared": False,
         "fPIC": True,
         "threadsafe": 1,
+# CCDC Additions
+        "enable_null_trim": False,
+        "max_column": "2000", # default according to https://www.sqlite.org/limits.html#max_column
+# CCDC Additions end
         "enable_column_metadata": True,
         "enable_dbstat_vtab": False,
         "enable_explain_comments": False,
@@ -66,8 +73,7 @@ class CCDCConanSqlite3(ConanFile):
         "max_blob_size": 1000000000,
         "build_executable": True,
         "enable_default_vfs": True,
-        "enable_null_trim": False,
-        "max_column": "2000", # default according to https://www.sqlite.org/limits.html#max_column
+        "enable_dbpage_vtab": False,
     }
 
     exports_sources = ["CMakeLists.txt"]
@@ -101,6 +107,7 @@ class CCDCConanSqlite3(ConanFile):
 
     def source(self):
         tools.get(**self.conan_data["sources"][self.version])
+# CCDC Additions
         url = self.conan_data["sources"][self.version]["url"]
         archive_name = os.path.basename(url)
         archive_name = os.path.splitext(archive_name)[0]
@@ -141,6 +148,7 @@ class CCDCConanSqlite3(ConanFile):
             "sqlite3_win32_utf8_to_unicode",
         ]:
             tools.replace_in_file("source_subfolder/shell.c", function, "ccdc_" + function)
+# CCDC Additions end
 
     def _configure_cmake(self):
         if self._cmake:
@@ -149,6 +157,10 @@ class CCDCConanSqlite3(ConanFile):
         self._cmake.definitions["SQLITE3_VERSION"] = self.version
         self._cmake.definitions["SQLITE3_BUILD_EXECUTABLE"] = self.options.build_executable
         self._cmake.definitions["THREADSAFE"] = self.options.threadsafe
+# CCDC Additions
+        self._cmake.definitions["ENABLE_NULL_TRIM"] = self.options.enable_null_trim
+        self._cmake.definitions["MAX_COLUMN"] = self.options.max_column
+# CCDC Additions end
         self._cmake.definitions["ENABLE_COLUMN_METADATA"] = self.options.enable_column_metadata
         self._cmake.definitions["ENABLE_DBSTAT_VTAB"] = self.options.enable_dbstat_vtab
         self._cmake.definitions["ENABLE_EXPLAIN_COMMENTS"] = self.options.enable_explain_comments
@@ -175,8 +187,8 @@ class CCDCConanSqlite3(ConanFile):
         self._cmake.definitions["DISABLE_GETHOSTUUID"] = self.options.disable_gethostuuid
         self._cmake.definitions["MAX_BLOB_SIZE"] = self.options.max_blob_size
         self._cmake.definitions["DISABLE_DEFAULT_VFS"] = not self.options.enable_default_vfs
-        self._cmake.definitions["ENABLE_NULL_TRIM"] = self.options.enable_null_trim
-        self._cmake.definitions["MAX_COLUMN"] = self.options.max_column
+        self._cmake.definitions["ENABLE_DBPAGE_VTAB"] = self.options.enable_dbpage_vtab
+        
         self._cmake.configure()
         return self._cmake
 
@@ -220,7 +232,9 @@ class CCDCConanSqlite3(ConanFile):
         self.cpp_info.set_property("pkg_config_name", "sqlite3")
 
         # TODO: back to global scope in conan v2 once cmake_find_package_* generators removed
+# CCDC Change
         self.cpp_info.components["sqlite"].libs = ["ccdcsqlite3"]
+# CCDC Change end
         if self.options.omit_load_extension:
             self.cpp_info.components["sqlite"].defines.append("SQLITE_OMIT_LOAD_EXTENSION")
         if self.settings.os in ["Linux", "FreeBSD"]:

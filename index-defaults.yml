@@ -26,12 +26,18 @@ platform_combinations:
   - name: native-centos7-gcc10-x86_64
     build_profile: centos7-gcc10-x86_64
     target_profile: centos7-gcc10-x86_64
+    uses_yum: true
   - name: native-ubuntu20-gcc10-x86_64
     build_profile: ubuntu20-gcc10-x86_64
     target_profile: ubuntu20-gcc10-x86_64
   - name: native-macos11-xcode13-x86_64
     build_profile: macos11-xcode13-x86_64
     target_profile: macos11-xcode13-x86_64
+    uses_brew: true
+  - name: native-macos12-xcode13-armv8
+    build_profile: macos12-xcode13-armv8
+    target_profile: macos12-xcode13-armv8
+    uses_brew: true
   - name: native-win2019-vs2019-x86_64
     build_profile: win2019-vs2019-x86_64
     target_profile: win2019-vs2019-x86_64
@@ -40,6 +46,7 @@ limit_to_platform_combinations:
   - native-centos7-gcc10-x86_64
   - native-ubuntu20-gcc10-x86_64
   - native-macos11-xcode13-x86_64
+  - native-macos12-xcode13-armv8
   - native-win2019-vs2019-x86_64
 
 conan_config_git_source: https://github.com/ccdc-opensource/conan-ccdc-common-configuration.git

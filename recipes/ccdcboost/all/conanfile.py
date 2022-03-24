@@ -5,7 +5,6 @@ import glob
 
 class CcdcBoostConan(ConanFile):
     name = "ccdcboost"
-    version='1.75.0'
     description = "A copy of boost with a patched shared_ptr"
     topics = ("conan", "kludge", "boost", "libraries", "cpp")
     url = "https://github.com/conan-io/conan-center-index"

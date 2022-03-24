@@ -8,7 +8,9 @@ class TestPackageConan(ConanFile):
 
     def build(self):
         cmake = CMake(self)
+# CCDC Change
         cmake.definitions["USE_EMPTY_VFS"] = not self.options["ccdcsqlite3"].enable_default_vfs
+# CCDC Change end
         cmake.configure()
         cmake.build()
 

@@ -1,5 +1,5 @@
 ---
 versions:
-  - 2.69
+  - "2.71"
 build_types:
   - Release
