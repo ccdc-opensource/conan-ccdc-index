@@ -1,0 +1,94 @@
+#!/bin/bash -x 
+
+set -e
+
+WS=$(cd $(dirname ${BASH_SOURCE})/../../; pwd)
+
+# needed for qtwebengine
+brew install pyenv
+eval "$(pyenv init -)"
+pyenv install --skip-existing 2.7.18
+
+export LOCAL_CONAN_INDEX=./conan-ccdc-index
+
+rm -rf ~/.conan
+conan config install $WS/conan-ccdc-common-configuration
+
+conan user --remote ccdc-3rdparty-conan --password=$ARTIFACTORY_API_KEY $USER
+conan user --remote ccdc-3rdparty-conan-testing --password=$ARTIFACTORY_API_KEY $USER
+conan user --remote public-conan-center --password=$ARTIFACTORY_API_KEY $USER
+conan user --remote public-conan-bincrafters --password=$ARTIFACTORY_API_KEY $USER
+
+
+cit publish recipe
+cit build --platform-combination native-macos12-xcode13-armv8 zlib
+cit build --platform-combination native-macos12-xcode13-armv8 bzip2
+cit build --platform-combination native-macos12-xcode13-armv8 zstd
+cit build --platform-combination native-macos12-xcode13-armv8 brotli
+cit build --platform-combination native-macos12-xcode13-armv8 gnu-config
+cit build --platform-combination native-macos12-xcode13-armv8 libffi
+cit build --platform-combination native-macos12-xcode13-armv8 pcre
+cit build --platform-combination native-macos12-xcode13-armv8 pcre2
+cit build --platform-combination native-macos12-xcode13-armv8 expat
+cit build --platform-combination native-macos12-xcode13-armv8 openssl
+cit build --platform-combination native-macos12-xcode13-armv8 double-conversion
+cit build --platform-combination native-macos12-xcode13-armv8 libpng
+cit build --platform-combination native-macos12-xcode13-armv8 libjpeg
+cit build --platform-combination native-macos12-xcode13-armv8 freetype
+cit build --platform-combination native-macos12-xcode13-armv8 m4
+cit build --platform-combination native-macos12-xcode13-armv8 autoconf
+cit build --platform-combination native-macos12-xcode13-armv8 libelf
+cit build --platform-combination native-macos12-xcode13-armv8 libiconv
+cit build --platform-combination native-macos12-xcode13-armv8 libgettext
+cit build --platform-combination native-macos12-xcode13-armv8 ninja 
+cit build --platform-combination native-macos12-xcode13-armv8 meson
+cit build --platform-combination native-macos12-xcode13-armv8 pkgconf
+cit build --platform-combination native-macos12-xcode13-armv8 flex
+cit build --platform-combination native-macos12-xcode13-armv8 glib
+cit build --platform-combination native-macos12-xcode13-armv8 harfbuzz
+cit build --platform-combination native-macos12-xcode13-armv8 ccdcsqlite3 
+cit build --platform-combination native-macos12-xcode13-armv8 sqlite3
+cit build --platform-combination native-macos12-xcode13-armv8 opengl
+cit build --platform-combination native-macos12-xcode13-armv8 cmake 
+cit build --platform-combination native-macos12-xcode13-armv8 nodejs
+cit build --platform-combination native-macos12-xcode13-armv8 bison
+cit build --platform-combination native-macos12-xcode13-armv8 gperf 
+cit build --platform-combination native-macos12-xcode13-armv8 automake 
+cit build --platform-combination native-macos12-xcode13-armv8 libtool
+cit build --platform-combination native-macos12-xcode13-armv8 libuuid 
+cit build --platform-combination native-macos12-xcode13-armv8 fontconfig
+cit build --platform-combination native-macos12-xcode13-armv8 icu
+
+# # qt dependencies end here
+
+cit build --platform-combination native-macos12-xcode13-armv8 gtest
+cit build --platform-combination native-macos12-xcode13-armv8 installbuilder
+cit build --platform-combination native-macos12-xcode13-armv8 swig
+cit build --platform-combination native-macos12-xcode13-armv8 ccdcboost
+cit build --platform-combination native-macos12-xcode13-armv8 boost
+cit build --platform-combination native-macos12-xcode13-armv8 cpp-httplib
+cit build --platform-combination native-macos12-xcode13-armv8 cppad
+cit build --platform-combination native-macos12-xcode13-armv8 cryptopp
+cit build --platform-combination native-macos12-xcode13-armv8 fasta
+
+
+cit build --platform-combination native-macos12-xcode13-armv8 inchi
+cit build --platform-combination native-macos12-xcode13-armv8 lexactivator
+cit build --platform-combination native-macos12-xcode13-armv8 lexfloatclient
+cit build --platform-combination native-macos12-xcode13-armv8 lexfloatserver
+cit build --platform-combination native-macos12-xcode13-armv8 libarchive
+cit build --platform-combination native-macos12-xcode13-armv8 libxl
+cit build --platform-combination native-macos12-xcode13-armv8 libcurl
+cit build --platform-combination native-macos12-xcode13-armv8 mariadb-connector-c
+cit build --platform-combination native-macos12-xcode13-armv8 range-v3
+cit build --platform-combination native-macos12-xcode13-armv8 rapidjson
+cit build --platform-combination native-macos12-xcode13-armv8 gsoap
+cit build --platform-combination native-macos12-xcode13-armv8 openscenegraph
+cit build --platform-combination native-macos12-xcode13-armv8 povray
+# cit build --platform-combination native-macos12-xcode13-armv8 rstatistics
+
+cit build --platform-combination native-macos12-xcode13-armv8 ccdc-main
+
+time cit build --platform-combination native-macos12-xcode13-armv8 qt
+
+time cit build --platform-combination native-macos12-xcode13-armv8 qwt
