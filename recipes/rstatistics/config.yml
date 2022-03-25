@@ -7,6 +7,7 @@ build_types:
 needs_artifactory_api_key: true
 limit_to_platform_combinations:
   - native-centos7-gcc10-x86_64
-  - native-macos11-xcode13-x86_64
+  - native-macos10.15-xcode12-x86_64
   - native-macos12-xcode13-armv8
+  - native-macos12-xcode13-x86_64
   - native-windows-msvc16-x86_64
