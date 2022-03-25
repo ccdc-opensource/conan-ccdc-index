@@ -5,3 +5,5 @@ versions:
 limit_to_platform_combinations:
   - native-centos7-gcc10-x86_64
   - native-ubuntu20-gcc10-x86_64
+require_override:
+  - libxml2/2.9.13@

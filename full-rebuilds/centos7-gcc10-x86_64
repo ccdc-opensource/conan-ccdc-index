@@ -92,6 +92,14 @@ cit build --platform-combination native-centos7-gcc10-x86_64 mariadb-connector-c
 cit build --platform-combination native-centos7-gcc10-x86_64 range-v3
 cit build --platform-combination native-centos7-gcc10-x86_64 rapidjson
 cit build --platform-combination native-centos7-gcc10-x86_64 gsoap
+## osg dependencies
+cit build --platform-combination native-centos7-gcc10-x86_64 giflib
+cit build --platform-combination native-centos7-gcc10-x86_64 jbig
+cit build --platform-combination native-centos7-gcc10-x86_64 libdeflate
+cit build --platform-combination native-centos7-gcc10-x86_64 libwebp
+cit build --platform-combination native-centos7-gcc10-x86_64 xz_utils
+cit build --platform-combination native-centos7-gcc10-x86_64 libtiff
+##
 cit build --platform-combination native-centos7-gcc10-x86_64 openscenegraph
 cit build --platform-combination native-centos7-gcc10-x86_64 povray
 cit build --platform-combination native-centos7-gcc10-x86_64 rstatistics
