@@ -9,6 +9,8 @@ brew install pyenv
 eval "$(pyenv init -)"
 pyenv install --skip-existing 2.7.18
 
+export PATH=$PATH:$HOME/.pyenv/versions/2.7.18/bin
+
 export LOCAL_CONAN_INDEX=./conan-ccdc-index
 
 rm -rf ~/.conan
