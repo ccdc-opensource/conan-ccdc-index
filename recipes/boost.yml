@@ -1,4 +1,6 @@
 ---
 versions:
+  # needed by povray
+  - 1.69.0
   - 1.78.0
 header_only: true

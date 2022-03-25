@@ -1,3 +1,5 @@
 ---
 versions:
+# fontconfig needs an update
+  - 2.4.6
   - 2.4.7

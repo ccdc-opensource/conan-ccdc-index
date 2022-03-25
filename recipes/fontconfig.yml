@@ -1,6 +1,8 @@
 ---
 versions:
   - 2.13.93
+require_override:
+  - expat/2.4.7@
 build_types:
   - Release
 macos_brew_preinstall:
