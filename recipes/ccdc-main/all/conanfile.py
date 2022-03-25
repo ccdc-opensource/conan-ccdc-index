@@ -32,7 +32,7 @@ class CCDCMainConan(ConanFile):
         if self.settings.os != 'Windows':
             self.requires("fontconfig/2.13.93")
 
-        self.requires("ccdcboost/1.75.0")
+        self.requires("ccdcboost/1.78.0")
         self.requires("ccdcsqlite3/3.38.1")
         self.requires("cpp-httplib/0.10.4")
         self.requires("cppad/20150000.9")
