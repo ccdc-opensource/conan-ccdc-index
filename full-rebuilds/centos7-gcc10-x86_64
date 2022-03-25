@@ -94,7 +94,7 @@ cit build --platform-combination native-centos7-gcc10-x86_64 rapidjson
 cit build --platform-combination native-centos7-gcc10-x86_64 gsoap
 cit build --platform-combination native-centos7-gcc10-x86_64 openscenegraph
 cit build --platform-combination native-centos7-gcc10-x86_64 povray
-# cit build --platform-combination native-centos7-gcc10-x86_64 rstatistics
+cit build --platform-combination native-centos7-gcc10-x86_64 rstatistics
 
 cit build --platform-combination native-centos7-gcc10-x86_64 ccdc-main
 
