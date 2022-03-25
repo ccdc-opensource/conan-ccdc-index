@@ -38,16 +38,16 @@ platform_combinations:
     build_profile: macos12-xcode13-armv8
     target_profile: macos12-xcode13-armv8
     uses_brew: true
-  - name: native-win2019-vs2019-x86_64
-    build_profile: win2019-vs2019-x86_64
-    target_profile: win2019-vs2019-x86_64
+  - name: native-windows-msvc16-x86_64
+    build_profile: build-on-windows-msvc16-x86_64
+    target_profile: windows-msvc16-x86_64
 
 limit_to_platform_combinations:
   - native-centos7-gcc10-x86_64
   - native-ubuntu20-gcc10-x86_64
   - native-macos11-xcode13-x86_64
   - native-macos12-xcode13-armv8
-  - native-win2019-vs2019-x86_64
+  - native-windows-msvc16-x86_64
 
 conan_config_git_source: https://github.com/ccdc-opensource/conan-ccdc-common-configuration.git
 conan_config_git_branch: main
