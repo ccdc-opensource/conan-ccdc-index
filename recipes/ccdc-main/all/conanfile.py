@@ -23,7 +23,7 @@ class CCDCMainConan(ConanFile):
             self.build_requires("7zip/19.00")
 
         self.build_requires("cmake/3.22.3")
-        self.build_requires("gtest/1.11.1")
+        self.build_requires("gtest/1.11.0")
         self.build_requires("installbuilder/21.12.0")
         self.build_requires("ninja/1.10.2")
         self.build_requires("swig/4.0.2")
