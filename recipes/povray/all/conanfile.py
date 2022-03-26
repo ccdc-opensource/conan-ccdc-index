@@ -6,7 +6,6 @@ from conans import ConanFile, AutoToolsBuildEnvironment, MSBuild, tools, RunEnvi
 
 class PovrayConan(ConanFile):
     name = "povray"
-    # version = "3.7.0.8"
     description = "The Persistence of Vision Raytracer."
     license = ["AGPL-3.0-only"]
     topics = ("conan", "freexl", "excel", "xls")
@@ -22,14 +21,16 @@ class PovrayConan(ConanFile):
 
 
     def build_requirements(self):
-        self.build_requires("boost/1.69.0")
-        self.build_requires("zlib/1.2.11")
-        self.build_requires("libpng/1.6.37")
-        self.build_requires("libjpeg/9d")
-        self.build_requires("libtiff/4.3.0")
         self.build_requires("automake/1.16.4")
         if self.settings.os_build == 'Windows':
             self.build_requires('7zip/19.00')
+
+    def requirements(self):
+        self.requires("boost/1.78.0")
+        self.requires("zlib/1.2.11")
+        self.requires("libpng/1.6.37")
+        self.requires("libjpeg/9d")
+        self.requires("libtiff/4.3.0")
 
     def source(self):
         if self.settings.os_build == "Windows":
@@ -47,7 +48,7 @@ class PovrayConan(ConanFile):
             os.rename('povray-3.7.0.0', self._source_subfolder)
         else:
             tools.get(**self.conan_data["sources"][self.version])
-            os.rename(self.name + "-" + self.version, self._source_subfolder)
+            os.rename(f"povunix-v{self.version}-src", self._source_subfolder)
         # tools.replace_in_file(os.path.join(self._source_subfolder, 'source', 'backend','povray.h'),
         #     "#error Please complete the following DISTRIBUTION_MESSAGE_2 definition", "")
         # tools.replace_in_file(os.path.join(self._source_subfolder, 'source', 'backend','povray.h'),
@@ -63,17 +64,13 @@ class PovrayConan(ConanFile):
 
     def _build_autotools(self):
         with tools.environment_append(RunEnvironment(self).vars):
-            with tools.chdir(os.path.join(self._source_subfolder, 'unix')):
-                prebuild_script = "./prebuild.sh"
-                st = os.stat(prebuild_script)
-                os.chmod(prebuild_script, st.st_mode | stat.S_IEXEC)
-                self.run(prebuild_script)
-            try:
-                autotools = self._configure_autotools()
-                autotools.make()
-            except:
-                self.output.info(open('config.log', errors='backslashreplace').read())
-                raise
+            # with tools.chdir(os.path.join(self._source_subfolder, 'unix')):
+            #     prebuild_script = "./prebuild.sh"
+            #     st = os.stat(prebuild_script)
+            #     os.chmod(prebuild_script, st.st_mode | stat.S_IEXEC)
+            #     self.run(prebuild_script)
+            autotools = self._configure_autotools()
+            autotools.make()
 
     def _build_msvc(self):
         msbuild = MSBuild(self)
@@ -95,8 +92,8 @@ class PovrayConan(ConanFile):
             'COMPILED_BY=CCDC',
             f'--with-boost-libdir={tools.unix_path(self.deps_cpp_info["boost"].lib_paths[0])}'
         ]
-
-        self._autotools.configure(args=args, configure_dir=self._source_subfolder)
+        with tools.environment_append(self._autotools.vars):
+            self._autotools.configure(args=args, configure_dir=self._source_subfolder)
         return self._autotools
 
     def package(self):

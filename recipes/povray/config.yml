@@ -1,9 +1,10 @@
 ---
 versions:
-  "3.7.0.8":
+  "3.8.0-beta.2":
     folder: all
 macos_deployment_target: "10.13"
-additional_profiles_for_all_platform_combinations: povray-options
+additional_profiles_for_all_platform_combinations:
+  - povray-options
 build_types:
   - Release
 limit_to_platform_combinations:

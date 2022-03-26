@@ -11,4 +11,4 @@ class TestPackageConan(ConanFile):
         if sys.platform == 'win32':
             self.run("pvengine64 /QINSTALL .. . /exit")
         else:
-            self.run("povray --version")
+            self.run("povray --version", run_environment=True)
