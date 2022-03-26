@@ -1,6 +1,7 @@
 ---
 versions:
   # needed by povray
-  - 1.69.0
   - 1.78.0
-header_only: true
+# header_only: true
+additional_profiles_for_all_platform_combinations:
+  - povray-options
