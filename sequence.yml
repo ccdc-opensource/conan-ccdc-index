@@ -1,0 +1,69 @@
+---
+build_sequence:
+  # This section contains mostly qt dependencies
+  - zlib
+  - bzip2
+  - zstd
+  - brotli
+  - gnu-config
+  - libffi
+  - pcre
+  - pcre2
+  - expat
+  - openssl
+  - double-conversion
+  - libpng
+  - libjpeg
+  - freetype
+  - m4
+  - autoconf
+  - libelf
+  - libiconv
+  - libgettext
+  - ninja
+  - meson
+  - pkgconf
+  - flex
+  - glib
+  - harfbuzz
+  - ccdcsqlite3
+  - sqlite3
+  - opengl
+  - cmake
+  - nodejs
+  - bison
+  - gperf
+  - automake
+  - libtool
+  - libuuid
+  - fontconfig
+  - icu
+  # qt dependencies end here
+  - gtest
+  - installbuilder
+  - swig
+  - ccdcboost
+  - boost
+  - cpp-httplib
+  - cppad
+  - cryptopp
+  - fasta
+  - inchi
+  - lexactivator
+  - lexfloatclient
+  - lexfloatserver
+  - libarchive
+  - libxl
+  - libcurl
+  - mariadb-connector-c
+  - range-v3
+  - rapidjson
+  - gsoap
+  - openscenegraph
+  - povray
+  - rstatistics
+
+  - ccdc-main
+  # someday these will be dependencies of ccdc-main
+  - qt
+  - qwt
