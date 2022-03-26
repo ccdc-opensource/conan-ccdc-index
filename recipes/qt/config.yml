@@ -4,3 +4,5 @@ versions:
     folder: all
 build_types:
   - Release
+macos_brew_preinstall:
+  - ninja
