@@ -2,4 +2,3 @@
 versions:
   "3.18.0":
     folder: all
-additional_profiles_for_all_platform_combinations: static-cryptlex
