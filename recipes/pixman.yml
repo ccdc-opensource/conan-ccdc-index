@@ -6,3 +6,6 @@ build_types:
   - Debug
 limit_to_platform_combinations:
   - native-centos7-gcc10-x86_64
+  - native-macos10.15-xcode12-x86_64
+  - native-macos12-xcode13-armv8
+  - native-macos12-xcode13-x86_64
