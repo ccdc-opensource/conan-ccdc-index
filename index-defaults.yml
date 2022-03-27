@@ -54,14 +54,21 @@ limit_to_platform_combinations:
   - native-macos12-xcode13-armv8
   - native-windows-msvc16-x86_64
 
+# This extension mechanism allows creating subtrees of packages with different profile requirements
+# that can be built in addition to the "default" builds which only use the platform based profiles
+package_build_alternatives:
+  - name: default
+    additional_target_profiles: []
+
+# These target profiles can be added unconditionally to all package builds
+additional_profiles_for_all_platform_combinations: []
+
 conan_config_git_source: https://github.com/ccdc-opensource/conan-ccdc-common-configuration.git
 conan_config_git_branch: main
 
 # Sets CONAN_CPU_COUNT='1' in environment for debug builds
 # was called workaround_autotools_windows_debug_issue
 force_single_cpu_core_for_debug_builds: false
-
-additional_profiles_for_all_platform_combinations: []
 
 use_release_zlib_profile: false
 

@@ -1,5 +1,5 @@
 ---
-# We use this for building boost, so only bring it in on ubuntu where we 'build' boost headers
+# We use this for building boost, which we use to build povray
 versions:
   - 4.8.0
 build_types:
@@ -10,4 +10,7 @@ limit_to_platform_combinations:
   - native-macos10.15-xcode12-x86_64
   - native-macos12-xcode13-armv8
   - native-macos12-xcode13-x86_64
-
+package_build_alternatives:
+  - name: for-povray
+    additional_target_profiles:
+      - povray-options

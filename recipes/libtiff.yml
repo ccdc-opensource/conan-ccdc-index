@@ -3,3 +3,9 @@ versions:
   - 4.3.0
 require_override:
   - libdeflate/1.10@
+package_build_alternatives:
+  - name: default
+    additional_target_profiles: []
+  - name: for-povray
+    additional_target_profiles:
+      - povray-options

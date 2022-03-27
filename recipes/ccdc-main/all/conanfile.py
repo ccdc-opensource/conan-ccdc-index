@@ -48,7 +48,7 @@ class CCDCMainConan(ConanFile):
         self.requires("mariadb-connector-c/3.1.12")
         self.requires("openscenegraph/3.6.5")
         self.requires("openssl/1.1.1n")
-        self.requires("povray/3.7.0.8")
+        self.requires("povray/3.8.0-beta.2")
         self.requires("range-v3/0.11.0")
         self.requires("rapidjson/1.1.0")
         self.requires("rstatistics/2.11.1")

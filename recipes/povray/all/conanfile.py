@@ -49,11 +49,6 @@ class PovrayConan(ConanFile):
         else:
             tools.get(**self.conan_data["sources"][self.version])
             os.rename(f"povunix-v{self.version}-src", self._source_subfolder)
-        # tools.replace_in_file(os.path.join(self._source_subfolder, 'source', 'backend','povray.h'),
-        #     "#error Please complete the following DISTRIBUTION_MESSAGE_2 definition", "")
-        # tools.replace_in_file(os.path.join(self._source_subfolder, 'source', 'backend','povray.h'),
-        #     "FILL IN NAME HERE.........................", "CCDC")
-        # tools.rmdir(os.path.join(self._source_subfolder, 'libraries'))
 
     def build(self):
         if self.settings.compiler == "Visual Studio":
@@ -64,20 +59,11 @@ class PovrayConan(ConanFile):
 
     def _build_autotools(self):
         with tools.environment_append(RunEnvironment(self).vars):
-            # with tools.chdir(os.path.join(self._source_subfolder, 'unix')):
-            #     prebuild_script = "./prebuild.sh"
-            #     st = os.stat(prebuild_script)
-            #     os.chmod(prebuild_script, st.st_mode | stat.S_IEXEC)
-            #     self.run(prebuild_script)
             autotools = self._configure_autotools()
             autotools.make()
 
     def _build_msvc(self):
         msbuild = MSBuild(self)
-        # msbuild.build_env.include_paths.append("mycustom/directory/to/headers")
-        # msbuild.build_env.lib_paths.append("mycustom/directory/to/libs")
-        # msbuild.build_env.link_flags = []
-
         msbuild.build(
             project_file=os.path.join(self._source_subfolder, "windows", "vs10", "povray.sln"),
             build_type='Release',
@@ -103,9 +89,6 @@ class PovrayConan(ConanFile):
         else:
             autotools = self._configure_autotools()
             autotools.install()
-            # tools.rmdir(os.path.join(self.package_folder, "lib", "pkgconfig"))
-            # for la_file in glob.glob(os.path.join(self.package_folder, "lib", "*.la")):
-            #     os.remove(la_file)
 
     def package_id(self):
         del self.info.settings.compiler
