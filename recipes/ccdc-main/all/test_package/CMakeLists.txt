@@ -17,7 +17,6 @@ find_package(openscenegraph REQUIRED)
 find_package(range-v3 REQUIRED)
 find_package(RapidJSON REQUIRED)
 find_package(SQLite3 REQUIRED)
-find_package(ccdcsqlite3 REQUIRED)
 #find_package(csdprotobufs REQUIRED)
 
 add_executable(example example.cpp)
@@ -33,9 +32,9 @@ target_link_libraries(example
     LexFloatClient::LexFloatClient
     libxl::libxl
     mariadb-connector-c::mariadb-connector-c
-    openscenegraph::openscenegraph
+    OPENSCENEGRAPH::OPENSCENEGRAPH
     range-v3::range-v3
     RapidJSON::RapidJSON
-    SQLite3::ccdcsqlite3
+    SQLite::SQLite3
 )
 set_target_properties(example PROPERTIES CXX_STANDARD 17)
