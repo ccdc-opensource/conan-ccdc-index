@@ -7,3 +7,6 @@ package_build_alternatives:
   - name: for-povray
     additional_target_profiles:
       - povray-options
+  - name: for-gsoap
+    additional_target_profiles:
+      - gsoap-options
