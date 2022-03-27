@@ -1,0 +1,20 @@
+---
+versions:
+  "1.16.0":
+    folder: all
+  "1.17.2":
+    folder: all
+  "1.17.4":
+    folder: meson
+centos_yum_preinstall:
+  - which
+build_types:
+  - Release
+  - Debug
+require_override:
+  - expat/2.4.7@
+limit_to_platform_combinations:
+  - native-centos7-gcc10-x86_64
+  - native-macos10.15-xcode12-x86_64
+  - native-macos12-xcode13-armv8
+  - native-macos12-xcode13-x86_64
