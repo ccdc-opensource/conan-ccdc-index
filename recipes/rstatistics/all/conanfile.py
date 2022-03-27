@@ -57,11 +57,17 @@ class RConan(ConanFile):
             try:
                 installer.install("gcc@9", update=True, force=True)
             except Exception:
-                self.output.warn("brew install gcc failed. Tying to fix it with 'brew link'")
-                self.run("brew link --overwrite gcc")
-            if not os.path.islink('/usr/local/bin/gfortran'):
+                try:
+                    installer.install("gfortran", update=True, force=True)
+                except Exception:
+                    self.output.warn("brew install gcc failed. Tying to fix it with 'brew link'")
+                    self.run("brew link --overwrite gcc")
+            if not os.path.islink('/usr/local/bin/gfortran') and os.path.exists("/usr/local/bin/gfortran-9"):
                 self.output.warn("Linking /usr/local/bin/gfortran -> gfortran-9")
                 os.symlink('gfortran-9', '/usr/local/bin/gfortran')
+            if not os.path.islink('/opt/homebrew/bin/gfortran') and os.path.exists("/opt/homebrew/bin/gfortran-11"):
+                self.output.warn("Linking /opt/homebrew/bin/gfortran -> gfortran-11")
+                os.symlink('gfortran-11', '/opt/homebrew/bin/gfortran')
 
     def _configure_autotools(self, envbuild_vars):
         if self._autotools:

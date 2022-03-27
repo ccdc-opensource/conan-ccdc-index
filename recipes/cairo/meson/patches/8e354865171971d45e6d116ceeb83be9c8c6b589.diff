@@ -1,0 +1,53 @@
+Fix for https://gitlab.freedesktop.org/cairo/cairo/-/issues/441
+
+Slight variation of 
+https://gitlab.freedesktop.org/tpm/cairo/-/commit/8e354865171971d45e6d116ceeb83be9c8c6b589
+
+diff --git a/meson.build b/meson.build
+index 13c5482b6678bc871339b7be050af8480a0945be..4e2933a243ecb8214772617500fa44d18380a88c 100644
+--- a/meson.build
++++ b/meson.build
+@@ -352,16 +352,23 @@ if qtgui_dep.found() and false
+   deps += [qtgui_dep]
+ endif
+ 
+-# Untested
+-if cc.has_header('ApplicationServices/ApplicationServices.h')
+-  if cc.has_header('CoreGraphics/CoreGraphics.h')
+-    quartz_extra_libs = ['-Xlinker', '-framework', '-Xlinker', 'CoreGraphics']
++if host_machine.system() == 'darwin' and not get_option('quartz').disabled()
++  appservices_dep = dependency('appleframeworks', modules : ['ApplicationServices'], required: get_option('quartz'))
++  coregraphics_dep = dependency('appleframeworks', modules : ['CoreGraphics'], required : get_option('quartz'))
++  corefoundation_dep = dependency('appleframeworks', modules : ['CoreFoundation'], required : false)
++
++  if appservices_dep.found()
++    if coregraphics_dep.found()
++      deps += [coregraphics_dep, corefoundation_dep]
++      quartz_extra_libs = ['-Xlinker', '-framework', '-Xlinker', 'CoreGraphics'] 
++    else
++      deps += [appservices_dep, corefoundation_dep]
++      quartz_extra_libs = ['-Xlinker', '-framework', '-Xlinker', 'ApplicationServices'] 
++    endif
+   else
+-    quartz_extra_libs = ['-Xlinker', '-framework', '-Xlinker', 'ApplicationServices']
++    quartz_extra_libs =
+   endif
+ 
+-  extra_link_args += quartz_extra_libs
+-
+   feature_conf.set('CAIRO_HAS_QUARTZ_SURFACE', 1)
+   feature_conf.set('CAIRO_HAS_QUARTZ_FONT', 1)
+   feature_conf.set('CAIRO_HAS_QUARTZ_IMAGE_SURFACE', 1)
+
+diff --git a/meson_options.txt b/meson_options.txt
+index a52b6e2f3e3a5738485f4be80b4e211ea1de7d42..61c5acfb4ea592b0ecbf60a274a9dc8b23256c64 100644
+--- a/meson_options.txt
++++ b/meson_options.txt
+@@ -13,6 +13,7 @@ option('glesv3', type : 'feature', value : 'auto')
+ option('drm', type : 'feature', value : 'disabled')
+ option('openvg', type : 'feature', value : 'disabled')
+ option('png', type : 'feature', value : 'auto') # png and svg surfaces
++option('quartz', type : 'feature', value : 'auto')
+ option('qt', type : 'feature', value : 'disabled')
+ option('tee', type : 'feature', value : 'disabled')
+ option('xcb', type : 'feature', value : 'auto')

@@ -7,7 +7,6 @@ conan_basic_setup()
 find_package(ccdcboost REQUIRED)
 find_package(cppad REQUIRED)
 find_package(cryptopp REQUIRED)
-find_package(csdprotobufs REQUIRED)
 find_package(gsoap REQUIRED)
 find_package(Inchi REQUIRED)
 find_package(LexActivator REQUIRED)
@@ -18,6 +17,8 @@ find_package(openscenegraph REQUIRED)
 find_package(range-v3 REQUIRED)
 find_package(RapidJSON REQUIRED)
 find_package(SQLite3 REQUIRED)
+find_package(ccdcsqlite3 REQUIRED)
+#find_package(csdprotobufs REQUIRED)
 
 add_executable(example example.cpp)
 
@@ -25,7 +26,7 @@ target_link_libraries(example
     ccdcboost::ccdcboost
     cppad::cppad
     cryptopp::cryptopp
-    csdprotobufs::csdprotobufs
+#    csdprotobufs::csdprotobufs
     gsoap::gsoap
     Inchi::Inchi
     LexActivator::LexActivator
@@ -35,6 +36,6 @@ target_link_libraries(example
     openscenegraph::openscenegraph
     range-v3::range-v3
     RapidJSON::RapidJSON
-    SQLite3::SQLite3
+    SQLite3::ccdcsqlite3
 )
 set_target_properties(example PROPERTIES CXX_STANDARD 17)
