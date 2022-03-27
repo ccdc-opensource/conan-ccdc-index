@@ -29,6 +29,7 @@ build_sequence:
   - ccdcsqlite3
   - sqlite3
   - opengl
+  - xorg
   - cmake
   - nodejs
   - bison
@@ -36,13 +37,30 @@ build_sequence:
   - automake
   - libtool
   - libuuid
+  # linux only dependencies
+  - libxml2
+  - wayland
+  - wayland-protocols
+  - xkbcommon
+  - dbus
+  # end linux only dependencies
+
   - fontconfig
   - icu
+  # more linux-only dependencies
+  - opus
+  - nspr
+  - nss
+  - vulkan-headers 
+  - vulkan-loader
+  # end linux only dependencies
+
   # qt dependencies end here
   - gtest
   - installbuilder
   - swig
   - ccdcboost
+  - b2
   - boost
   - cpp-httplib
   - cppad
@@ -59,6 +77,14 @@ build_sequence:
   - range-v3
   - rapidjson
   - gsoap
+  ## openscenegraph dependencies
+  - giflib
+  - jbig
+  - libdeflate
+  - libwebp
+  - xz_utils
+  - libtiff
+  ##
   - openscenegraph
   - povray
   - rstatistics
