@@ -6,3 +6,7 @@ centos_yum_preinstall:
 build_types:
   - Release
   - Debug
+require_override:
+  - expat/2.4.7@
+limit_to_platform_combinations:
+  - native-centos7-gcc10-x86_64

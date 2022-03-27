@@ -2,7 +2,6 @@
 versions:
   "3.8.0-beta.2":
     folder: all
-macos_deployment_target: "10.15"
 build_types:
   - Release
 limit_to_platform_combinations:

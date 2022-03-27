@@ -85,8 +85,10 @@ build_sequence:
   - xz_utils
   - libtiff
   ##
-  - openscenegraph
   - povray
+  - openscenegraph
+  - pixman
+  - cairo
   - rstatistics
 
   - ccdc-main

@@ -37,6 +37,7 @@ class CCDCMainConan(ConanFile):
         self.requires("cpp-httplib/0.10.4")
         self.requires("cppad/20150000.9")
         self.requires("cryptopp/8.6.0")
+        self.requires("expat/2.4.7")
         self.requires("fasta/36.3.8f")
         self.requires("gsoap/2.8.117")
         self.requires("inchi/1.04")
