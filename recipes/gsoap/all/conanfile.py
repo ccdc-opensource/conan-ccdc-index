@@ -1,4 +1,4 @@
-from conans import ConanFile, CMake, tools
+from conans import ConanFile, CMake, tools, RunEnvironment
 import os, shutil
 
 
@@ -41,7 +41,8 @@ class ConanFileDefault(ConanFile):
 
     def build(self):
         cmake = self._configure_cmake()
-        cmake.build()
+        with tools.environment_append(RunEnvironment(self).vars):
+            cmake.build()
 
     def build_requirements(self):
         if tools.cross_building(self, skip_x64_x86=True) and hasattr(self, 'settings_build'):

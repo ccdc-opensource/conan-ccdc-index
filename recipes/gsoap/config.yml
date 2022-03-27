@@ -6,3 +6,7 @@ build_types:
   - Release
   - Debug
 use_release_zlib_profile: true
+package_build_alternatives:
+  - name: for-gsoap
+    additional_target_profiles:
+      - gsoap-options
