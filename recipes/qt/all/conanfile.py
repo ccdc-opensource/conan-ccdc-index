@@ -76,6 +76,8 @@ class QtConan(ConanFile):
         "with_gstreamer": [True, False],
         "with_pulseaudio": [True, False],
         "with_dbus": [True, False],
+        "with_bundled_xcb_xinput": [True, False],
+        "with_egl": [True, False],
 
         "gui": [True, False],
         "widgets": [True, False],
@@ -115,6 +117,8 @@ class QtConan(ConanFile):
         "with_gstreamer": False,
         "with_pulseaudio": False,
         "with_dbus": False,
+        "with_bundled_xcb_xinput": False,
+        "with_egl": False,
 
         "gui": True,
         "widgets": True,
@@ -148,6 +152,8 @@ class QtConan(ConanFile):
                 self.build_requires("bison/3.7.6")
                 self.build_requires("gperf/3.1")
                 self.build_requires("flex/2.6.4")
+                if not tools.which("which"):
+                    raise ConanInvalidConfiguration("the 'which' program must be available in PATH in order to build Qt")
 
             # Check if a valid python2 is available in PATH or it will failflex
             # Start by checking if python2 can be found
@@ -192,6 +198,8 @@ class QtConan(ConanFile):
             del self.options.with_icu
             del self.options.with_fontconfig
             del self.options.with_libalsa
+            del self.options.with_bundled_xcb_xinput
+            del self.options.with_egl
         if self.settings.compiler == "apple-clang":
             if tools.Version(self.settings.compiler.version) < "10.0":
                 raise ConanInvalidConfiguration("Old versions of apple sdk are not supported by Qt (QTBUG-76777)")
@@ -358,10 +366,15 @@ class QtConan(ConanFile):
             self.requires("openal/1.21.1")
         if self.options.get_safe("with_libalsa", False):
             self.requires("libalsa/1.2.4")
+        if self.options.qtactiveqt or (self.options.gui and self.settings.os in ["Linux", "FreeBSD"]):
+            # this is needed by some xorg libraries but also by some dependencies so let's bring it in...
+            self.requires("libuuid/1.0.3")
         if self.options.gui and self.settings.os in ["Linux", "FreeBSD"]:
             self.requires("xorg/system")
             if not tools.cross_building(self, skip_x64_x86=True):
                 self.requires("xkbcommon/1.4.0")
+        if self.options.get_safe("with_egl"):
+            self.requires("egl/system")
         if self.options.get_safe("opengl", "no") != "no":
             self.requires("opengl/system")
         if self.options.with_zstd:
@@ -369,6 +382,7 @@ class QtConan(ConanFile):
         if self.options.qtwebengine and self.settings.os in ["Linux", "FreeBSD"]:
             self.requires("expat/2.4.7")
             self.requires("opus/1.3.1")
+            self.requires("nss/3.76")
         if self.options.get_safe("with_gstreamer", False):
             self.requires("gst-plugins-base/1.19.1")
         if self.options.get_safe("with_pulseaudio", False):
@@ -537,6 +551,11 @@ class QtConan(ConanFile):
         else:
             args.append("-no-vulkan")
 
+        if self.options.get_safe("with_egl", False):
+            args.append("-egl")
+        else:
+            args.append("-no-egl")
+
         # openSSL
         if not self.options.openssl:
             args += ["-no-openssl"]
@@ -567,6 +586,8 @@ class QtConan(ConanFile):
         else:
             args.append("-no-dbus")
 
+        if self.options.with_bundled_xcb_xinput:
+            args.append("-bundled-xcb-xinput")
         for opt, conf_arg in [
                               ("with_doubleconversion", "doubleconversion"),
                               ("with_freetype", "freetype"),
@@ -606,8 +627,10 @@ class QtConan(ConanFile):
                   ("xkbcommon", "XKBCOMMON")]
         for package, var in libmap:
             if package in self.deps_cpp_info.deps:
-                if package == "freetype":
+                if package in ["freetype", "harfbuzz"]:
                     args.append("\"%s_INCDIR=%s\"" % (var, self.deps_cpp_info[package].include_paths[-1]))
+                if package in ["double-conversion", "icu", "zstd", "zlib", "sqlite3", "harfbuzz"]:
+                    args.append("\"%s_LIBDIR=%s\"" % (var, self.deps_cpp_info[package].lib_paths[-1]))
 
                 args.append("\"%s_LIBS=%s\"" % (var, " ".join(self._gather_libs(package))))
 
@@ -694,19 +717,19 @@ class QtConan(ConanFile):
                     build_env["PATH"] = [os.path.join(self.source_folder, "qt5", "gnuwin32", "bin")]
 
                 with tools.environment_append(build_env):
+                    with tools.environment_append(RunEnvironment(self).vars):
+                        if tools.os_info.is_macos:
+                            open(".qmake.stash" , "w").close()
+                            open(".qmake.super" , "w").close()
 
-                    if tools.os_info.is_macos:
-                        open(".qmake.stash" , "w").close()
-                        open(".qmake.super" , "w").close()
-
-                    self.run("%s/qt5/configure %s" % (self.source_folder, " ".join(args)), run_environment=True)
-                    if tools.os_info.is_macos:
-                        with open("bash_env", "w") as f:
-                            f.write('export DYLD_LIBRARY_PATH="%s"' % ":".join(RunEnvironment(self).vars["DYLD_LIBRARY_PATH"]))
-                    with tools.environment_append({
-                        "BASH_ENV": os.path.abspath("bash_env")
-                    }) if tools.os_info.is_macos else tools.no_op():
-                        self.run(self._make_program(), run_environment=True)
+                        self.run("%s/qt5/configure %s" % (self.source_folder, " ".join(args)), run_environment=True)
+                        if tools.os_info.is_macos:
+                            with open("bash_env", "w") as f:
+                                f.write('export DYLD_LIBRARY_PATH="%s"' % ":".join(RunEnvironment(self).vars["DYLD_LIBRARY_PATH"]))
+                        with tools.environment_append({
+                            "BASH_ENV": os.path.abspath("bash_env")
+                        }) if tools.os_info.is_macos else tools.no_op():
+                            self.run(self._make_program(), run_environment=True)
 
     @property
     def _cmake_executables_file(self):
@@ -915,6 +938,8 @@ Examples = bin/datadir/examples""")
                 gui_reqs.append("libjpeg-turbo::libjpeg-turbo")
             if self.options.with_libjpeg == "libjpeg":
                 gui_reqs.append("libjpeg::libjpeg")
+            if self.settings.os == "Linux":
+                gui_reqs.append("libuuid::libuuid")
             _create_module("Gui", gui_reqs)
             self.cpp_info.components["qtGui"].build_modules["cmake_find_package"].append(self._cmake_qt5_private_file("Gui"))
             self.cpp_info.components["qtGui"].build_modules["cmake_find_package_multi"].append(self._cmake_qt5_private_file("Gui"))
@@ -1036,7 +1061,7 @@ Examples = bin/datadir/examples""")
         if self.options.qtwebengine:
             webenginereqs = ["Gui", "Quick", "WebChannel", "Positioning"]
             if self.settings.os in ["Linux", "FreeBSD"]:
-                webenginereqs.extend(["expat::expat", "opus::libopus"])
+                webenginereqs.extend(["expat::expat", "opus::libopus", "nss::nss"])
             _create_module("WebEngineCore", webenginereqs)
             _create_module("WebEngine", ["WebEngineCore"])
             _create_module("WebEngineWidgets", ["WebEngineCore", "Quick", "PrintSupport", "Widgets", "Gui", "Network"])
