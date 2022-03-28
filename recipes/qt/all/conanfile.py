@@ -361,13 +361,13 @@ class QtConan(ConanFile):
         if self.options.gui and self.settings.os in ["Linux", "FreeBSD"]:
             self.requires("xorg/system")
             if not tools.cross_building(self, skip_x64_x86=True):
-                self.requires("xkbcommon/1.3.0")
+                self.requires("xkbcommon/1.4.0")
         if self.options.get_safe("opengl", "no") != "no":
             self.requires("opengl/system")
         if self.options.with_zstd:
             self.requires("zstd/1.5.2")
         if self.options.qtwebengine and self.settings.os in ["Linux", "FreeBSD"]:
-            self.requires("expat/2.4.3")
+            self.requires("expat/2.4.7")
             self.requires("opus/1.3.1")
         if self.options.get_safe("with_gstreamer", False):
             self.requires("gst-plugins-base/1.19.1")
