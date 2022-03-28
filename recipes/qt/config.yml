@@ -6,3 +6,5 @@ build_types:
   - Release
 macos_brew_preinstall:
   - ninja
+require_override:
+  - libxml2/2.9.13@
