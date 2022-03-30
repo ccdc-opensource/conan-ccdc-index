@@ -6,5 +6,7 @@ build_types:
   - Release
 macos_brew_preinstall:
   - ninja
+centos_yum_preinstall:
+  - dbus-devel
 require_override:
   - libxml2/2.9.13@

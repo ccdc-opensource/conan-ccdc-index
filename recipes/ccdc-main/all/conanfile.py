@@ -32,6 +32,7 @@ class CCDCMainConan(ConanFile):
         if self.settings.os != 'Windows':
             self.requires("fontconfig/2.13.93")
 
+        self.requires("approvaltests.cpp/10.12.1")
         self.requires("ccdcboost/1.78.0")
         self.requires("ccdcsqlite3/3.38.1")
         self.requires("cpp-httplib/0.10.4")
@@ -50,6 +51,7 @@ class CCDCMainConan(ConanFile):
         self.requires("openscenegraph/3.6.5")
         self.requires("openssl/1.1.1n")
         self.requires("povray/3.8.0-beta.2")
+        self.requires("protobuf/3.19.2")
         self.requires("range-v3/0.11.0")
         self.requires("rapidjson/1.1.0")
         self.requires("rstatistics/2.11.1")

@@ -85,6 +85,8 @@ build_sequence:
   - pixman
   - cairo
   - rstatistics
+  - approvaltests.cpp
+  - protobuf
 
   - ccdc-main
   # someday these will be dependencies of ccdc-main
