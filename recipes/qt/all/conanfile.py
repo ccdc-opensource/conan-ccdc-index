@@ -586,7 +586,7 @@ class QtConan(ConanFile):
         else:
             args.append("-no-dbus")
 
-        if self.options.with_bundled_xcb_xinput:
+        if self.options.get_safe("with_bundled_xcb_xinput", False):
             args.append("-bundled-xcb-xinput")
         for opt, conf_arg in [
                               ("with_doubleconversion", "doubleconversion"),
