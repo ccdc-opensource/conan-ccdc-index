@@ -23,7 +23,6 @@ class CCDCMainConan(ConanFile):
             self.build_requires("7zip/19.00")
 
         self.build_requires("cmake/3.22.3")
-        self.build_requires("gtest/1.11.0")
         self.build_requires("installbuilder/21.12.0")
         self.build_requires("ninja/1.10.2")
         self.build_requires("swig/4.0.2")
@@ -41,6 +40,7 @@ class CCDCMainConan(ConanFile):
         self.requires("expat/2.4.7")
         self.requires("fasta/36.3.8f")
         self.requires("gsoap/2.8.117")
+        self.requires("gtest/1.11.0")
         self.requires("inchi/1.04")
         self.requires("lexactivator/3.18.0")
         self.requires("lexfloatclient/4.6.0")
