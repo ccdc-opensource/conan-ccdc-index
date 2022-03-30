@@ -88,7 +88,8 @@ build_sequence:
   - approvaltests.cpp
   - protobuf
 
-  - ccdc-main
-  # someday these will be dependencies of ccdc-main
   - qt
   - qwt
+
+  # The death star
+  - ccdc-main

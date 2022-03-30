@@ -52,6 +52,8 @@ class CCDCMainConan(ConanFile):
         self.requires("openssl/1.1.1n")
         self.requires("povray/3.8.0-beta.2")
         self.requires("protobuf/3.19.2")
+        self.requires("qt/5.15.8")
+        self.requires("qwt/6.2.0")
         self.requires("range-v3/0.11.0")
         self.requires("rapidjson/1.1.0")
         self.requires("rstatistics/2.11.1")
