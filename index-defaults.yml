@@ -45,6 +45,9 @@ platform_combinations:
   - name: native-windows-msvc16-x86_64
     build_profile: build-on-windows-msvc16-x86_64
     target_profile: windows-msvc16-x86_64
+  - name: native-windows-msvc17-x86_64
+    build_profile: build-on-windows-msvc17-x86_64
+    target_profile: windows-msvc17-x86_64
 
 limit_to_platform_combinations:
   - native-centos7-gcc10-x86_64
@@ -53,6 +56,7 @@ limit_to_platform_combinations:
   - native-macos12-xcode13-x86_64
   - native-macos12-xcode13-armv8
   - native-windows-msvc16-x86_64
+  - native-windows-msvc17-x86_64
 
 # This extension mechanism allows creating subtrees of packages with different profile requirements
 # that can be built in addition to the "default" builds which only use the platform based profiles

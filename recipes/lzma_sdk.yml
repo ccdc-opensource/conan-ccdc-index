@@ -5,3 +5,4 @@ build_types:
   - Release
 limit_to_platform_combinations:
   - native-windows-msvc16-x86_64
+  - native-windows-msvc17-x86_64

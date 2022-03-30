@@ -10,6 +10,7 @@ limit_to_platform_combinations:
   - native-macos12-xcode13-armv8
   - native-macos12-xcode13-x86_64
   - native-windows-msvc16-x86_64
+  - native-windows-msvc17-x86_64
 package_build_alternatives:
   - name: for-povray
     additional_target_profiles:
