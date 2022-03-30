@@ -10,7 +10,6 @@ export LCI_PLATFORM_COMBINATION=native-centos7-gcc10-x86_64
 rm -rf ~/.conan
 conan config install $WS/conan-ccdc-common-configuration
 
-conan user --remote ccdc-3rdparty-conan --password=$ARTIFACTORY_API_KEY $CONAN_USER
 conan user --remote ccdc-3rdparty-conan-testing --password=$ARTIFACTORY_API_KEY $CONAN_USER
 conan user --remote public-conan-center --password=$ARTIFACTORY_API_KEY $CONAN_USER
 conan user --remote public-conan-bincrafters --password=$ARTIFACTORY_API_KEY $CONAN_USER

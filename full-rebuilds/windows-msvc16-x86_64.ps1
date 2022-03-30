@@ -12,7 +12,6 @@ $Env:LCI_PLATFORM_COMBINATION="native-windows-msvc16-x86_64"
 Remove-Item -recurse -force "$($HOME)/.conan" -ErrorAction SilentlyContinue
 conan config install "$($WS)/conan-ccdc-common-configuration"
 
-conan user --remote ccdc-3rdparty-conan --password=$Env:ARTIFACTORY_API_KEY $CONAN_USER
 conan user --remote ccdc-3rdparty-conan-testing --password=$Env:ARTIFACTORY_API_KEY $CONAN_USER
 conan user --remote public-conan-center --password=$Env:ARTIFACTORY_API_KEY $CONAN_USER
 conan user --remote public-conan-bincrafters --password=$Env:ARTIFACTORY_API_KEY $CONAN_USER
