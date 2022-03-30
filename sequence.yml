@@ -17,14 +17,10 @@ build_sequence:
   - freetype
   - m4
   - autoconf
-  - libelf
-  - libiconv
-  - libgettext
   - ninja
   - meson
   - pkgconf
   - flex
-  - glib
   - harfbuzz
   - ccdcsqlite3
   - sqlite3
@@ -42,7 +38,6 @@ build_sequence:
   - wayland
   - wayland-protocols
   - xkbcommon
-  - dbus
   # end linux only dependencies
 
   - fontconfig
