@@ -6,6 +6,8 @@
 
 #include <boost/shared_ptr.hpp>
 #include <sqlite3.h>
+#include <QCoreApplication>
+
 /*
     cppad::cppad
     cryptopp::cryptopp
@@ -21,7 +23,10 @@
     RapidJSON::RapidJSON
     SQLite3::SQLite3
 */
-int main() {
+int main(int argc, char**argv) {
+    QCoreApplication app(argc, argv);
+    QCoreApplication::setApplicationName("Application Example");
+    QCoreApplication::setApplicationVersion("1.0.0");
 #if !defined(_WIN32)
 	FcConfig* config = FcInitLoadConfigAndFonts();
 #endif
