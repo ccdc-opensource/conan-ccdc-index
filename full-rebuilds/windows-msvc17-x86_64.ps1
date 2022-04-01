@@ -7,7 +7,10 @@ $WS=Resolve-Path -Path "$($PSScriptRoot)/../.."
 
 # choco install -y cmake.install --installargs 'ADD_CMAKE_TO_PATH=System'
 # choco install -y python2
+
 Write-Host "If the meson build fails, you may have to enable Developer Mode. See https://github.com/conan-io/conan/issues/10726"
+Write-Host "If the inchi build fails, with this error: fatal error RC1015: cannot open include file 'afxres.h'"
+Write-Host "You should add the MFC libraries to your visual studio install"
 
 $CONAN_USER="cbantaloukas"
 $Env:LOCAL_CONAN_INDEX="$($WS)/conan-ccdc-index"
