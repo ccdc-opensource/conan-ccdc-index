@@ -16,15 +16,18 @@ class CCDCMainConan(ConanFile):
     author = "Claudio Bantaloukas <cbantaloukas@ccdc.cam.ac.uk>"
 
     settings = "os", "arch", "compiler", "build_type"
+    generators = ["CMakeDeps", "CMakeToolchain", "json"]
     no_copy_source = True
 
     def build_requirements(self):
         if self.settings.os == 'Windows':
             self.build_requires("7zip/19.00")
 
-        self.build_requires("cmake/3.22.3")
+        self.tool_requires("cmake/3.22.3")
         self.build_requires("installbuilder/21.12.0")
         self.build_requires("ninja/1.10.2")
+
+        # When we upgrade swig to 4.1, please remove the no_fatal_warnings line in SwigPyLibrary
         self.build_requires("swig/4.0.2")
 
     def requirements(self):

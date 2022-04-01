@@ -1,9 +1,15 @@
 import os
 from conans import ConanFile, CMake, tools
+from conan.tools.cmake import CMakeToolchain
+
 
 class FontconfigTestConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
-    generators = "cmake", "cmake_find_package"
+    generators = "CMakeDeps", "CMakeToolchain"
+
+    def generate(self):
+        tc = CMakeToolchain(self)
+        tc.generate()
 
     def build(self):
         cmake = CMake(self)
@@ -12,4 +18,4 @@ class FontconfigTestConan(ConanFile):
 
     def test(self):
         if not tools.cross_building(self, skip_x64_x86=True):
-            self.run(os.path.join("bin", "example"), run_environment=True)
+            self.run("example", run_environment=True)
