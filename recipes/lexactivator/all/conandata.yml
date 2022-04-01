@@ -20,6 +20,5 @@
         "sha256": "447590547008009b0533bd98881cd81ba8033f6ea75ccbf10e8d0fe758a8f75c"
         "url": "https://dl.cryptlex.com/downloads/v3.18.0/LexActivator-Win.zip"
       "static":
-        "16":
-          "sha256": "a4ab631b0bc4805abac055aa42dba536ed91ef3d6689ffb4a945896afbae8846"
-          "url": "https://dl.cryptlex.com/downloads/v3.18.0/LexActivator-Static-Win-VC14.zip"
+        "sha256": "a4ab631b0bc4805abac055aa42dba536ed91ef3d6689ffb4a945896afbae8846"
+        "url": "https://dl.cryptlex.com/downloads/v3.18.0/LexActivator-Static-Win-VC14.zip"

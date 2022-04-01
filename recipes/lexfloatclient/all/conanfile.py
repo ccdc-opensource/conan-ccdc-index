@@ -24,10 +24,7 @@ class ConanLexFloatClient(ConanFile):
     
     def source(self):
         tools.get(**self.conan_data["sources"][self.version][str(self.settings.os)]['shared'])
-        if self.settings.os == "Windows":
-            tools.get(**self.conan_data["sources"][self.version][str(self.settings.os)]['static'])
-        else:
-            tools.get(**self.conan_data["sources"][self.version][str(self.settings.os)]['static'])
+        tools.get(**self.conan_data["sources"][self.version][str(self.settings.os)]['static'])
 
     @property
     def _package_lib_dir(self):
@@ -122,7 +119,7 @@ class ConanLexFloatClient(ConanFile):
 
         if self.settings.os == "Windows" and not self.options.shared:
             self.cpp_info.defines.append('LEXFLOATCLIENT_STATIC')
-            self.cpp_info.system_libs.extend(["winhttp"])
+            self.cpp_info.system_libs.extend(["winhttp", "Ws2_32", "Crypt32"])
 
         self.cpp_info.names["cmake_find_package"] = self._la_libname
         self.cpp_info.names["cmake_find_package_multi"] = self._la_libname
