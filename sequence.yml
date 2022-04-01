@@ -53,6 +53,7 @@ build_sequence:
   # qt dependencies end here
   - gtest
   - installbuilder
+  - winflexbison
   - swig
   - ccdcboost
   - b2
