@@ -38,3 +38,5 @@ class CcdcBoostConan(ConanFile):
         self.env_info.BOOST_ROOT = self.package_folder
         self.cpp_info.names["cmake_find_package"] = "ccdcboost"
         self.cpp_info.names["cmake_find_package_multi"] = "ccdcboost"
+        self.cpp_info.set_property("cmake_file_name", "ccdcboost")
+        self.cpp_info.set_property("cmake_target_name", "ccdcboost::ccdcboost")

@@ -70,6 +70,9 @@ class InchiConan(ConanFile):
     def package_info(self):
         self.cpp_info.names["cmake_find_package"] = "Inchi"
         self.cpp_info.names["cmake_find_package_multi"] = "Inchi"
+        self.cpp_info.set_property("cmake_file_name", "Inchi")
+        self.cpp_info.set_property("cmake_target_name", "Inchi::Inchi")
+
         bin_path = os.path.join(self.package_folder, "bin")
         self.output.info("Appending PATH env var with : {}".format(bin_path))
         self.env_info.PATH.append(bin_path)

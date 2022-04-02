@@ -249,6 +249,9 @@ class OpenSceneGraphConanFile(ConanFile):
         # but it will set the last three of these if the name of the package is OPENSCENEGRAPH (it uses
         # the filename for the first, so OpenSceneGraph_FOUND gets set, not OPENSCENEGRAPH_FOUND)
         # TODO: set OPENSCENEGRAPH_FOUND in cmake_find_package and cmake_find_package_multi
+        self.cpp_info.set_property("cmake_file_name", "OpenSceneGraph")
+        self.cpp_info.set_property("cmake_target_name", "OPENSCENEGRAPH::OPENSCENEGRAPH")
+
         self.cpp_info.filenames["cmake_find_package"] = "OpenSceneGraph"
         self.cpp_info.filenames["cmake_find_package_multi"] = "OpenSceneGraph"
         self.cpp_info.names["cmake_find_package"] = "OPENSCENEGRAPH"

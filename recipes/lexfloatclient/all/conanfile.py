@@ -121,5 +121,7 @@ class ConanLexFloatClient(ConanFile):
             self.cpp_info.defines.append('LEXFLOATCLIENT_STATIC')
             self.cpp_info.system_libs.extend(["winhttp", "Ws2_32", "Crypt32"])
 
-        self.cpp_info.names["cmake_find_package"] = self._la_libname
-        self.cpp_info.names["cmake_find_package_multi"] = self._la_libname
+        self.cpp_info.names["cmake_find_package"] = "LexFloatClient"
+        self.cpp_info.names["cmake_find_package_multi"] = "LexFloatClient"
+        self.cpp_info.set_property("cmake_file_name", "LexFloatClient")
+        self.cpp_info.set_property("cmake_target_name", "LexFloatClient::LexFloatClient")
