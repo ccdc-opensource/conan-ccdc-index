@@ -27,4 +27,23 @@ conan user --remote public-conan-bincrafters --password=$Env:ARTIFACTORY_API_KEY
 
 cit publish recipe
 
+cd csd-database-proto
+conan export . csdprotobufs/1.0.193.1@
+cd ..
+cd data-standards-cql
+conan export . cqlprotobufs/1.0.103.1@
+cd ..
+cd conan-installbuilder-licence
+conan export . installbuilder-licence/2021.7.26@
+cd ..
+
 cit build
+
+
+conan install csdprotobufs/1.0.193.1@ --profile:build build-on-windows-msvc17-x86_64 --profile:host windows-msvc17-x86_64-release --build=csdprotobufs -s build_type=Release
+conan install csdprotobufs/1.0.193.1@ --profile:build build-on-windows-msvc17-x86_64 --profile:host windows-msvc17-x86_64-release --build=csdprotobufs -s build_type=Debug
+conan install cqlprotobufs/1.0.103.1@ --profile:build build-on-windows-msvc17-x86_64 --profile:host windows-msvc17-x86_64-release --build=cqlprotobufs -s build_type=Release
+conan install cqlprotobufs/1.0.103.1@ --profile:build build-on-windows-msvc17-x86_64 --profile:host windows-msvc17-x86_64-release --build=cqlprotobufs -s build_type=Debug
+conan install installbuilder-licence/2021.7.26@ --profile:build build-on-windows-msvc17-x86_64 --profile:host windows-msvc17-x86_64-release --build=installbuilder-licence
+
+conan upload --all --parallel --remote ccdc-3rdparty-conan-testing '*' --confirm

@@ -23,4 +23,25 @@ conan user --remote public-conan-bincrafters --password=$ARTIFACTORY_API_KEY $US
 
 
 cit publish recipe
+
+
+pushd csd-database-proto
+conan export . csdprotobufs/1.0.193.1@
+popd
+pushd data-standards-cql
+conan export . cqlprotobufs/1.0.103.1@
+popd
+pushd conan-installbuilder-licence
+conan export . installbuilder-licence/2021.7.26@
+popd
+
+
 cit build
+
+conan install csdprotobufs/1.0.193.1@ --profile:build build-on-macos12-xcode13-armv8 --profile:host macos12-xcode13-armv8-release --build=csdprotobufs -s build_type=Release
+conan install csdprotobufs/1.0.193.1@ --profile:build build-on-macos12-xcode13-armv8 --profile:host macos12-xcode13-armv8-release --build=csdprotobufs -s build_type=Debug
+conan install cqlprotobufs/1.0.103.1@ --profile:build build-on-macos12-xcode13-armv8 --profile:host macos12-xcode13-armv8-release --build=cqlprotobufs -s build_type=Release
+conan install cqlprotobufs/1.0.103.1@ --profile:build build-on-macos12-xcode13-armv8 --profile:host macos12-xcode13-armv8-release --build=cqlprotobufs -s build_type=Debug
+conan install installbuilder-licence/2021.7.26@ --profile:build build-on-macos12-xcode13-armv8 --profile:host macos12-xcode13-armv8-release --build=installbuilder-licence
+
+conan upload --all --parallel --remote ccdc-3rdparty-conan-testing '*' --confirm
