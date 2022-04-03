@@ -934,7 +934,8 @@ Examples = bin/datadir/examples""")
             else:
                 libname = module
             self.cpp_info.components[componentname].libs = ["Qt5%s%s" % (libname, libsuffix)]
-            self.cpp_info.components[componentname].includedirs = ["include", os.path.join("include", "Qt%s" % module)]
+            if not module.endswith("Private"):
+                self.cpp_info.components[componentname].includedirs = ["include", os.path.join("include", "Qt%s" % module)]
             self.cpp_info.components[componentname].defines = ["QT_%s_LIB" % module.upper()]
             if module != "Core" and "Core" not in requires:
                 requires.append("Core")
