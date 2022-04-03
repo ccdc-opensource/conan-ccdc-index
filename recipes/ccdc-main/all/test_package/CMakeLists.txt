@@ -34,30 +34,71 @@ find_package(rstatistics REQUIRED)
 find_package(SQLite3 REQUIRED)
 
 # find_package(OpenSceneGraph REQUIRED)
-find_package(openscenegraph REQUIRED)
+find_package(OpenSceneGraph CONFIG REQUIRED)
 find_package(Qt5 COMPONENTS Core Concurrent Widgets Network Xml OpenGL PrintSupport Test Sql Svg WebEngine WebEngineCore WebEngineWidgets XmlPatterns REQUIRED)
 find_package(qwt REQUIRED)
 
 add_executable(example WIN32 example.cpp)
 
 target_link_libraries(example
+    approvaltests.cpp::approvaltests.cpp
+    BZip2::BZip2
     ccdcboost::ccdcboost
     cppad::cppad
     cryptopp-static
-#    csdprotobufs::csdprotobufs
+    CURL::libcurl
+    EXPAT::EXPAT
+    freetype
     gsoap::gsoap
-    inchi::inchi
-    lexactivator::lexactivator
-    lexfloatclient::lexfloatclient
+    GTest::gtest
+    httplib::httplib
+    Inchi::Inchi
+    jbig::jbig
+    JPEG::JPEG
+    LexActivator::LexActivator
+    LexFloatClient::LexFloatClient
+    LibArchive::LibArchive
+    LibLZMA::LibLZMA
     libxl::libxl
+    LibXml2::LibXml2
     mariadb-connector-c::mariadb-connector-c
-    openscenegraph::openscenegraph
+    OPENSCENEGRAPH::OPENSCENEGRAPH
+    openssl::openssl
+    PNG::PNG
     protobuf::libprotobuf
+    Qt5::Concurrent
+    Qt5::Core
+    Qt5::Network
+    Qt5::OpenGL
+    Qt5::PrintSupport
+    Qt5::QSQLiteDriverPlugin
+    Qt5::Sql
+    Qt5::Svg
+    Qt5::Test
+    Qt5::WebEngine
+    Qt5::WebEngineCore
+    Qt5::WebEngineWidgets
+    Qt5::Widgets
+    Qt5::Xml
+    Qt5::XmlPatterns # deprecated in Qt6
+    qwt::qwt
     range-v3::range-v3
     rapidjson::rapidjson
     SQLite::SQLite3
-    Qt5::Core Qt5::Concurrent Qt5::Widgets Qt5::Network Qt5::Xml Qt5::OpenGL Qt5::PrintSupport Qt5::Test Qt5::Sql Qt5::Svg Qt5::WebEngine Qt5::WebEngineCore Qt5::WebEngineWidgets
-    # deprecated in Qt6
-    Qt5::XmlPatterns
+    TIFF::TIFF
+    libwebp::libwebp
+    ZLIB::ZLIB
+    zstd::libzstd_shared
 )
+if(WIN32)
+    target_link_libraries(example Qt5::AXServer)
+else()
+    target_link_libraries(example libuuid::libuuid Fontconfig::Fontconfig)
+    if(APPLE)
+    else()
+    
+    endif()
+endif()
 set_target_properties(example PROPERTIES CXX_STANDARD 17)
+
+
