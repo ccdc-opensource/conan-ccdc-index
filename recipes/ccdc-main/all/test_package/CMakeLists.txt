@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
 project(PackageTest CXX)
 
-# find_package(ApprovalTests REQUIRED)
 find_package(approvaltests.cpp REQUIRED)
 find_package(ccdcboost REQUIRED)
 find_package(cppad REQUIRED)

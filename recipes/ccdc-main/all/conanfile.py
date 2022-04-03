@@ -3,8 +3,12 @@
 
 import os
 
-from conans import ConanFile, CMake, tools
-from conans.errors import ConanInvalidConfiguration
+from conan import ConanFile
+from conan.tools.cmake import CMake, CMakeToolchain
+
+
+required_conan_version = ">=1.43.0"
+
 
 class CCDCMainConan(ConanFile):
     name = "ccdc-main"
@@ -19,16 +23,24 @@ class CCDCMainConan(ConanFile):
     generators = ["CMakeDeps", "CMakeToolchain", "json"]
     no_copy_source = True
 
+    def generate(self):
+        tc = CMakeToolchain(self)
+        tc.variables["USING_CONAN_PACKAGES"] = "TRUE"
+        tc.generate()
+
     def build_requirements(self):
         if self.settings.os == 'Windows':
-            self.build_requires("7zip/19.00")
+            self.tool_requires("7zip/19.00")
 
         self.tool_requires("cmake/3.22.3")
-        self.build_requires("installbuilder/21.12.0")
-        self.build_requires("ninja/1.10.2")
+        self.tool_requires("installbuilder/21.12.0")
+        self.tool_requires("ninja/1.10.2")
 
         # When we upgrade swig to 4.1, please remove the no_fatal_warnings line in SwigPyLibrary
-        self.build_requires("swig/4.0.2")
+        self.tool_requires("swig/4.0.2")
+
+        # Needed to create intermediate files
+        self.tool_requires("gsoap/2.8.117")
 
     def requirements(self):
         if self.settings.os != 'Windows':
