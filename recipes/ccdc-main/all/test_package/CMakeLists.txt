@@ -92,10 +92,9 @@ target_link_libraries(example
 if(WIN32)
     target_link_libraries(example Qt5::AXServer)
 else()
-    target_link_libraries(example libuuid::libuuid Fontconfig::Fontconfig)
+    target_link_libraries(example Fontconfig::Fontconfig)
     if(APPLE)
     else()
-    
     endif()
 endif()
 set_target_properties(example PROPERTIES CXX_STANDARD 17)
