@@ -1,5 +1,8 @@
 ---
 sources:
-  "3.7.0.8":
-    url: "https://github.com/POV-Ray/povray/archive/v3.7.0.8.zip"
-    sha256: "fe99ae9eb23e74e4b2823fd4995d8f3aa35df571638d0b15e18dc3faf86c1945"
+  "3.7.0.10":
+    url: "https://github.com/POV-Ray/povray/archive/refs/tags/v3.7.0.10.tar.gz"
+    sha256: "7bee83d9296b98b7956eb94210cf30aa5c1bbeada8ef6b93bb52228bbc83abff"
+  "3.8.0-beta.2":
+    url: "https://github.com/POV-Ray/povray/releases/download/v3.8.0-beta.2/povunix-v3.8.0-beta.2-src.tar.gz"
+    sha256: "4717c9bed114deec47cf04a8175cc4060dafc159f26e7896480a60f4411ca5ad"

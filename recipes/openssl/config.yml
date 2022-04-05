@@ -1,8 +1,19 @@
 ---
 versions:
   # 3.0.x releases
-  3.0.1:
+  3.0.2:
     folder: "3.x.x"
   # 1.1.1x releases
+  # for cmake
   1.1.1m:
     folder: "1.x.x"
+  1.1.1n:
+    folder: "1.x.x"
+macos_brew_preinstall:
+  - cmake
+package_build_alternatives:
+  - name: default
+    additional_target_profiles: []
+  - name: for-gsoap
+    additional_target_profiles:
+      - gsoap-options

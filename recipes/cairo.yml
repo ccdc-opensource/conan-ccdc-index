@@ -1,8 +1,0 @@
----
-versions:
-  - 1.17.4
-centos_yum_preinstall:
-  - which
-build_types:
-  - Release
-  - Debug

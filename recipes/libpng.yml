@@ -1,3 +1,9 @@
 ---
 versions:
   - 1.6.37
+package_build_alternatives:
+  - name: default
+    additional_target_profiles: []
+  - name: for-povray
+    additional_target_profiles:
+      - povray-options

@@ -34,14 +34,18 @@ class RConan(ConanFile):
             extrated_dir = "R-" + self.version
             os.rename(extrated_dir, self._source_subfolder)
 
+    def requirements(self):
+        if self.settings.os_build != 'Windows':
+            self.requires('libjpeg/9d')
+            self.requires('xz_utils/5.2.5')
+            self.requires('libpng/1.6.37')
+            self.requires('libtiff/4.3.0')
+            self.requires('cairo/1.17.4')
+            self.requires('zlib/1.2.12')
+
     def build_requirements(self):
         if self.settings.os_build != 'Windows':
-            self.build_requires('automake/1.16.2')
-            self.build_requires('libjpeg/9d')
-            self.build_requires('xz_utils/5.2.5')
-            self.build_requires('libpng/1.6.37')
-            self.build_requires('libtiff/4.2.0')
-            self.build_requires('cairo/1.17.2')
+            self.build_requires('automake/1.16.4')
 
         installer = tools.SystemPackageTool()
         if tools.os_info.is_linux:
@@ -54,11 +58,17 @@ class RConan(ConanFile):
             try:
                 installer.install("gcc@9", update=True, force=True)
             except Exception:
-                self.output.warn("brew install gcc failed. Tying to fix it with 'brew link'")
-                self.run("brew link --overwrite gcc")
-            if not os.path.islink('/usr/local/bin/gfortran'):
+                try:
+                    installer.install("gfortran", update=True, force=True)
+                except Exception:
+                    self.output.warn("brew install gcc failed. Tying to fix it with 'brew link'")
+                    self.run("brew link --overwrite gcc")
+            if not os.path.islink('/usr/local/bin/gfortran') and os.path.exists("/usr/local/bin/gfortran-9"):
                 self.output.warn("Linking /usr/local/bin/gfortran -> gfortran-9")
                 os.symlink('gfortran-9', '/usr/local/bin/gfortran')
+            if not os.path.islink('/opt/homebrew/bin/gfortran') and os.path.exists("/opt/homebrew/bin/gfortran-11"):
+                self.output.warn("Linking /opt/homebrew/bin/gfortran -> gfortran-11")
+                os.symlink('gfortran-11', '/opt/homebrew/bin/gfortran')
 
     def _configure_autotools(self, envbuild_vars):
         if self._autotools:

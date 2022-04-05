@@ -1,5 +1,7 @@
 ---
 versions:
-  # used by some build dependencies
-  - 2.4.4
+# cairo needs an update
+  - 2.4.2
+# fontconfig needs an update
   - 2.4.6
+  - 2.4.7

@@ -1,4 +1,4 @@
-from conans import ConanFile, CMake, tools
+from conans import ConanFile, CMake, tools, RunEnvironment
 import os, shutil
 
 
@@ -11,7 +11,7 @@ class ConanFileDefault(ConanFile):
     homepage = "https://sourceforge.net/projects/gsoap2"
     license = ("gSOAP-1.3b", "GPL-2.0-or-later")
     exports_sources = ["CMakeLists.txt", "src/*.cmake", "src/*.txt"]
-    generators = "cmake"
+    generators = "cmake", "cmake_find_package"
     short_paths = True
 
     _cmake = None
@@ -37,35 +37,28 @@ class ConanFileDefault(ConanFile):
 
 
     def source(self):
-        tools.get(**self.conan_data["sources"][self.version])
-        # Rename to "source_subfolder" is a convention to simplify later steps
-        extracted_dir = "gsoap-" + self.version[:self.version.rindex('.')]
-        os.rename(extracted_dir, self._source_subfolder)
-        for gsoapfile in [
-                f"{self._source_subfolder}/gsoap/stdsoap2.cpp",
-                f"{self._source_subfolder}/gsoap/stdsoap2.c"
-            ]:
-            tools.replace_in_file(
-                gsoapfile,
-                "if !defined(_GNU_SOURCE) || (~_GNU_SOURCE+1 && ((!defined(_POSIX_C_SOURCE)",
-                "if !defined(_GNU_SOURCE) || (!_GNU_SOURCE && ((!defined(_POSIX_C_SOURCE)"
-            )
+        tools.get(**self.conan_data["sources"][self.version], destination=self._source_subfolder, strip_root=True)
 
     def build(self):
         cmake = self._configure_cmake()
-        cmake.build()
+        with tools.environment_append(RunEnvironment(self).vars):
+            cmake.build()
 
     def build_requirements(self):
-        if tools.os_info.is_windows:
-            self.build_requires("winflexbison/2.5.22")
+        if tools.cross_building(self, skip_x64_x86=True) and hasattr(self, 'settings_build'):
+            self.build_requires("gsoap/{}".format(self.version))
+
+        if hasattr(self, "settings_build") and self.settings_build.os == "Windows":
+            self.build_requires("winflexbison/2.5.24")
         else:
-            self.build_requires("bison/3.5.3")
+            self.build_requires("bison/3.7.6")
             self.build_requires("flex/2.6.4")
+        self.build_requires("cmake/3.22.3")
 
     def requirements(self):
         if self.options.with_openssl:
-            self.requires("openssl/1.1.1k")
-            self.requires("zlib/1.2.11")
+            self.requires("openssl/1.1.1n")
+            self.requires("zlib/1.2.12")
 
     def _configure_cmake(self):
         if self._cmake:

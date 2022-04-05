@@ -1,0 +1,38 @@
+#!/bin/bash -x 
+
+set -e
+
+WS=$(cd $(dirname ${BASH_SOURCE})/../../; pwd)
+
+CONAN_USER=cbantaloukas
+export LOCAL_CONAN_INDEX=$WS/conan-ccdc-index
+export LCI_PLATFORM_COMBINATION=native-centos7-gcc10-x86_64
+rm -rf ~/.conan
+conan config install $WS/conan-ccdc-common-configuration
+
+conan user --remote ccdc-3rdparty-conan-testing --password=$ARTIFACTORY_API_KEY $CONAN_USER
+conan user --remote public-conan-center --password=$ARTIFACTORY_API_KEY $CONAN_USER
+conan user --remote public-conan-bincrafters --password=$ARTIFACTORY_API_KEY $CONAN_USER
+
+
+cit publish recipe
+
+pushd csd-database-proto
+conan export . csdprotobufs/1.0.193.1@
+popd
+pushd data-standards-cql
+conan export . cqlprotobufs/1.0.103.1@
+popd
+pushd conan-installbuilder-licence
+conan export . installbuilder-licence/2021.7.26@
+popd
+
+cit build
+
+conan install csdprotobufs/1.0.193.1@ --profile:build build-on-centos7-gcc10-x86_64 --profile:host centos7-gcc10-x86_64-release --build=csdprotobufs -s build_type=Release
+conan install csdprotobufs/1.0.193.1@ --profile:build build-on-centos7-gcc10-x86_64 --profile:host centos7-gcc10-x86_64-release --build=csdprotobufs -s build_type=Debug
+conan install cqlprotobufs/1.0.103.1@ --profile:build build-on-centos7-gcc10-x86_64 --profile:host centos7-gcc10-x86_64-release --build=cqlprotobufs -s build_type=Release
+conan install cqlprotobufs/1.0.103.1@ --profile:build build-on-centos7-gcc10-x86_64 --profile:host centos7-gcc10-x86_64-release --build=cqlprotobufs -s build_type=Debug
+conan install installbuilder-licence/2021.7.26@ --profile:build build-on-centos7-gcc10-x86_64 --profile:host centos7-gcc10-x86_64-release --build=installbuilder-licence
+
+conan upload --all --parallel --remote ccdc-3rdparty-conan-testing '*' --confirm

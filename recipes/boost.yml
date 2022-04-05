@@ -1,4 +1,9 @@
 ---
 versions:
-  - 1.75.0
-header_only: true
+  - 1.78.0
+build_types:
+  - Release
+package_build_alternatives:
+  - name: for-povray
+    additional_target_profiles:
+      - povray-options

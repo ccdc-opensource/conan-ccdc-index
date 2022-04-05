@@ -1,12 +1,17 @@
 ---
 versions:
-  "3.7.0.8":
+  "3.8.0-beta.2":
     folder: all
-macos_deployment_target: "10.13"
-additional_profiles_for_all_platform_combinations: povray-options
 build_types:
   - Release
 limit_to_platform_combinations:
   - native-centos7-gcc10-x86_64
-  - native-macos11-xcode13-x86_64
-  - native-win2019-vs2019-x86_64
+  - native-macos10.15-xcode12-x86_64
+  - native-macos12-xcode13-armv8
+  - native-macos12-xcode13-x86_64
+  - native-windows-msvc16-x86_64
+  - native-windows-msvc17-x86_64
+package_build_alternatives:
+  - name: for-povray
+    additional_target_profiles:
+      - povray-options

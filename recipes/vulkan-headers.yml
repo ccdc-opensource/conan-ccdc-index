@@ -1,0 +1,7 @@
+---
+versions:
+  - 1.2.198.0
+  - 1.3.204.1
+limit_to_platform_combinations:
+  - native-centos7-gcc10-x86_64
+  - native-ubuntu20-gcc10-x86_64

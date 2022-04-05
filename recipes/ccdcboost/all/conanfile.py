@@ -5,7 +5,6 @@ import glob
 
 class CcdcBoostConan(ConanFile):
     name = "ccdcboost"
-    version='1.75.0'
     description = "A copy of boost with a patched shared_ptr"
     topics = ("conan", "kludge", "boost", "libraries", "cpp")
     url = "https://github.com/conan-io/conan-center-index"
@@ -39,3 +38,5 @@ class CcdcBoostConan(ConanFile):
         self.env_info.BOOST_ROOT = self.package_folder
         self.cpp_info.names["cmake_find_package"] = "ccdcboost"
         self.cpp_info.names["cmake_find_package_multi"] = "ccdcboost"
+        self.cpp_info.set_property("cmake_file_name", "ccdcboost")
+        self.cpp_info.set_property("cmake_target_name", "ccdcboost::ccdcboost")

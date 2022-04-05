@@ -1,7 +1,8 @@
 ---
 versions:
-  - 19.00
+  - "19.00"
 build_types:
   - Release
 limit_to_platform_combinations:
-  - native-win2019-vs2019-x86_64
+  - native-windows-msvc16-x86_64
+  - native-windows-msvc17-x86_64

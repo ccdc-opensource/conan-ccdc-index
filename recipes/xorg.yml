@@ -1,0 +1,8 @@
+---
+versions:
+  - system
+build_types:
+  - Release
+limit_to_platform_combinations:
+  - native-centos7-gcc10-x86_64
+  - native-ubuntu20-gcc10-x86_64

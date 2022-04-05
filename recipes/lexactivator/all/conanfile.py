@@ -5,7 +5,6 @@ from conans.errors import ConanInvalidConfiguration
 
 class ConanLexActivator(ConanFile):
     name = "lexactivator"
-    # version = '3.14.7'
     description = "LexActivator licensing library"
     url = "https://app.cryptlex.com/downloads"
     homepage = "https://cryptlex.com/"
@@ -25,10 +24,7 @@ class ConanLexActivator(ConanFile):
     
     def source(self):
         tools.get(**self.conan_data["sources"][self.version][str(self.settings.os)]['shared'])
-        if self.settings.os == "Windows":
-            tools.get(**self.conan_data["sources"][self.version][str(self.settings.os)]['static'][str(self.settings.compiler.version)])
-        else:
-            tools.get(**self.conan_data["sources"][self.version][str(self.settings.os)]['static'])
+        tools.get(**self.conan_data["sources"][self.version][str(self.settings.os)]['static'])
 
     @property
     def _package_lib_dir(self):
@@ -130,7 +126,10 @@ class ConanLexActivator(ConanFile):
 
         if self.settings.os == "Windows" and not self.options.shared:
             self.cpp_info.defines.append('LEXACTIVATOR_STATIC')
-            self.cpp_info.system_libs.extend(["winhttp"])
+            self.cpp_info.system_libs.extend(["winhttp", "Ws2_32", "Crypt32"])
 
-        self.cpp_info.names["cmake_find_package"] = self._la_libname
-        self.cpp_info.names["cmake_find_package_multi"] = self._la_libname
+        self.cpp_info.names["cmake_find_package"] = "LexActivator"
+        self.cpp_info.names["cmake_find_package_multi"] = "LexActivator"
+        self.cpp_info.set_property("cmake_file_name", "LexActivator")
+        self.cpp_info.set_property("cmake_target_name", "LexActivator::LexActivator")
+

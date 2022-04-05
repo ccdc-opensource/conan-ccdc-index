@@ -1,12 +1,12 @@
 ---
 "sources":
-  "4.6.1":
+  "4.7.1":
     "Linux":
-      "sha256": "93e54e39430259227915e052ed50f42700ce8a62a0aaab83ad60fcdf9323c698"
-      "url": "https://dl.cryptlex.com/downloads/lexfloatserver/v4.6.1/LexFloatServer-Linux.zip"
+      "sha256": "5204e9ee073d2035263ccff347421bee91907d3eae5af73309006f8f51eb1674"
+      "url": "https://dl.cryptlex.com/downloads/lexfloatserver/v4.7.1/LexFloatServer-Linux.zip"
     "Macos":
-      "sha256": "608df874198f07e94d9d4925c9f926085fde0ef6e2158981c1d2d9ccb9cb5391"
-      "url": "https://dl.cryptlex.com/downloads/lexfloatserver/v4.6.1/LexFloatServer-Mac.zip"
+      "sha256": "cddff09a0cb845d19e8ab2dec5bde1750f4991ff74db1685abf5f284280fd746"
+      "url": "https://dl.cryptlex.com/downloads/lexfloatserver/v4.7.1/LexFloatServer-Mac.zip"
     "Windows":
-      "sha256": "332190cae60bf0d3d8bccdb779605695f8186de71d3e865ab004092638fa6edc"
-      "url": "https://dl.cryptlex.com/downloads/lexfloatserver/v4.6.1/LexFloatServer-Win.zip"
+      "sha256": "444db87666a969fe81dfb67ad0ec26fa4f8c9b2fcbbdf74d05383b06c4aae41a"
+      "url": "https://dl.cryptlex.com/downloads/lexfloatserver/v4.7.1/LexFloatServer-Win.zip"

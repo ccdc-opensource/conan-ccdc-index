@@ -1,9 +1,13 @@
 ---
 versions:
-  "3.6.3":
+  "3.6.5":
     folder: all
 build_types:
   - Release
   - Debug
 use_release_zlib_profile: true
 split_by_build_type: true
+require_override:
+  - expat/2.4.7@
+  - libdeflate/1.10@
+  - zlib/1.2.12@

@@ -1,24 +1,24 @@
 ---
 "sources":
-  "4.5.2":
+  "4.6.0":
     "Linux":
       "shared":
-        "sha256": "1e8dece6fd574b57641474be6a55048a47ee328afe5b09d7a7204d9a048e4a02"
-        "url": "https://dl.cryptlex.com/downloads/v4.5.2/LexFloatClient-Linux.zip"
+        "sha256": "1a80290431358417304a9d6fa58f06dba6e61f316ad6c7b7042aeca07c406e89"
+        "url": "https://dl.cryptlex.com/downloads/v4.6.0/LexFloatClient-Linux.zip"
       "static":
-        "sha256": "784c778a497335735961d01c801ba1d7a524b766e4b2986285e5bb30eabaab9b"
-        "url": "https://dl.cryptlex.com/downloads/v4.5.2/LexFloatClient-Static-Linux.zip"
+        "sha256": "e3e224d4e280715b23509acb13c23c026664c79143aef7e19cc2d9bbcf71610b"
+        "url": "https://dl.cryptlex.com/downloads/v4.6.0/LexFloatClient-Static-Linux.zip"
     "Macos":
       "shared":
-        "sha256": "6b0d99f8299202cd95a5da2227a0ca7b96fd90ac1d269d00e18a3e7f0100a34a"
-        "url": "https://dl.cryptlex.com/downloads/v4.5.2/LexFloatClient-Mac.zip"
+        "sha256": "a3a18e1a50789a5fb5077972f6b5472b043fc0eae75bcbfc0e1e116adb03232f"
+        "url": "https://dl.cryptlex.com/downloads/v4.6.0/LexFloatClient-Mac.zip"
       "static":
-        "sha256": "f8ddfc75e1f95cbb9d7e6e52c7f9dff48c4fd1ecb14694d4f14cc0dae49c2939"
-        "url": "https://dl.cryptlex.com/downloads/v4.5.2/LexFloatClient-Static-Mac.zip"
+        "sha256": "18c955ebd19ae0158192929717f60df3cdb597cda17b351f12e845ede78dc3f3"
+        "url": "https://dl.cryptlex.com/downloads/v4.6.0/LexFloatClient-Static-Mac.zip"
     "Windows":
       "shared":
-        "sha256": "23bb48f0a58167ba6f5c365a004416c1651fa06e8a694d250893020d6f722837"
-        "url": "https://dl.cryptlex.com/downloads/v4.5.2/LexFloatClient-Win.zip"
+        "sha256": "8539e801648971103f6d1c23253160e83ac1a20a28e3c95fecbfe567941555d7"
+        "url": "https://dl.cryptlex.com/downloads/v4.6.0/LexFloatClient-Win.zip"
       "static":
-        "sha256": "d1dda3dd6c644c2839afdf3c9540d10e147b1ee100760e5738faf64a5f93e5c8"
-        "url": "https://dl.cryptlex.com/downloads/v4.5.2/LexFloatClient-Static-Win-VC14.zip"
+        "sha256": "bdc9da1aa06aafbf012264d524818244edf007cf718e4c4d88ff2c6ef7c0919b"
+        "url": "https://dl.cryptlex.com/downloads/v4.6.0/LexFloatClient-Static-Win-VC14.zip"

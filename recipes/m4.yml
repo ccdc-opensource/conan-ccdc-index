@@ -1,3 +1,10 @@
 ---
 versions:
   - 1.4.18
+  - 1.4.19
+package_build_alternatives:
+  - name: default
+    additional_target_profiles: []
+  - name: for-povray
+    additional_target_profiles:
+      - povray-options

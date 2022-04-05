@@ -1,0 +1,96 @@
+---
+build_sequence:
+  # This section contains mostly qt dependencies
+  - zlib
+  - bzip2
+  - zstd
+  - brotli
+  - gnu-config
+  - libffi
+  - pcre
+  - pcre2
+  - expat
+  - openssl
+  - double-conversion
+  - libpng
+  - libjpeg
+  - freetype
+  - m4
+  - autoconf
+  - ninja
+  - meson
+  - pkgconf
+  - flex
+  - harfbuzz
+  - ccdcsqlite3
+  - sqlite3
+  - opengl
+  - xorg
+  - cmake
+  - nodejs
+  - bison
+  - gperf
+  - automake
+  - libtool
+  - libuuid
+  # linux only dependencies
+  - libxml2
+  - wayland
+  - wayland-protocols
+  - xkbcommon
+  # end linux only dependencies
+
+  - fontconfig
+  - icu
+  # more linux-only dependencies
+  - opus
+  - nspr
+  - nss
+  - vulkan-headers 
+  - vulkan-loader
+  # end linux only dependencies
+
+  # qt dependencies end here
+  - gtest
+  - installbuilder
+  - winflexbison
+  - swig
+  - ccdcboost
+  - b2
+  - boost
+  - cpp-httplib
+  - cppad
+  - cryptopp
+  - fasta
+  - inchi
+  - lexactivator
+  - lexfloatclient
+  - lexfloatserver
+  - libarchive
+  - libxl
+  - libcurl
+  - mariadb-connector-c
+  - range-v3
+  - rapidjson
+  - gsoap
+  ## openscenegraph dependencies
+  - giflib
+  - jbig
+  - libdeflate
+  - libwebp
+  - xz_utils
+  - libtiff
+  ##
+  - povray
+  - openscenegraph
+  - pixman
+  - cairo
+  - rstatistics
+  - approvaltests.cpp
+  - protobuf
+
+  - qt
+  - qwt
+
+  # The death star
+  - ccdc-main

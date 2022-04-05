@@ -36,7 +36,7 @@ class InchiConan(ConanFile):
         del self.settings.compiler.cppstd
         
     def build_requirements(self):
-        self.build_requires("cmake/3.17.3")
+        self.build_requires("cmake/3.22.3")
     
     def source(self):
         tools.get(**self.conan_data["sources"][self.version])
@@ -70,6 +70,9 @@ class InchiConan(ConanFile):
     def package_info(self):
         self.cpp_info.names["cmake_find_package"] = "Inchi"
         self.cpp_info.names["cmake_find_package_multi"] = "Inchi"
+        self.cpp_info.set_property("cmake_file_name", "Inchi")
+        self.cpp_info.set_property("cmake_target_name", "Inchi::Inchi")
+
         bin_path = os.path.join(self.package_folder, "bin")
         self.output.info("Appending PATH env var with : {}".format(bin_path))
         self.env_info.PATH.append(bin_path)

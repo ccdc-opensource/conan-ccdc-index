@@ -4,4 +4,4 @@ from conans import ConanFile
 class TestPackage(ConanFile):
     
     def test(self):
-        self.run("R -e 'q()'")
+        self.run("R -e 'q()'", run_environment=True)
