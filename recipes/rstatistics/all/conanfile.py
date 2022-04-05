@@ -41,6 +41,7 @@ class RConan(ConanFile):
             self.requires('libpng/1.6.37')
             self.requires('libtiff/4.3.0')
             self.requires('cairo/1.17.4')
+            self.requires('zlib/1.2.12')
 
     def build_requirements(self):
         if self.settings.os_build != 'Windows':
