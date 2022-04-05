@@ -20,7 +20,8 @@ macos_brew_preinstall: []
 
 # Some packages depend on older versions of libraries, specifying an override here will cause them to build with newer versions
 # This trick doesn't work with build requirements!
-require_override: []
+require_override:
+  - zlib/1.2.12@
 
 platform_combinations:
   - name: native-centos7-gcc10-x86_64

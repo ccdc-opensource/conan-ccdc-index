@@ -14,5 +14,6 @@ limit_to_platform_combinations:
   - native-windows-msvc17-x86_64
 require_override:
   - expat/2.4.7@
+  - zlib/1.2.12@
 macos_brew_preinstall:
   - gfortran

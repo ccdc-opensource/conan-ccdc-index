@@ -10,3 +10,4 @@ split_by_build_type: true
 require_override:
   - expat/2.4.7@
   - libdeflate/1.10@
+  - zlib/1.2.12@

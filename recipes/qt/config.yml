@@ -10,3 +10,4 @@ centos_yum_preinstall:
   - dbus-devel
 require_override:
   - libxml2/2.9.13@
+  - zlib/1.2.12@

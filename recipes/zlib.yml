@@ -1,6 +1,6 @@
 ---
 versions:
-  - 1.2.11
+  - 1.2.12
 package_build_alternatives:
   - name: default
     additional_target_profiles: []

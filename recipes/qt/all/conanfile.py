@@ -334,7 +334,7 @@ class QtConan(ConanFile):
             raise ConanInvalidConfiguration("Pulseaudio needs to be built with glib option or qt's configure script won't detect it")
 
     def requirements(self):
-        self.requires("zlib/1.2.11")
+        self.requires("zlib/1.2.12")
         if self.options.openssl:
             self.requires("openssl/1.1.1n")
         if self.options.with_pcre2:

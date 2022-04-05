@@ -6,3 +6,4 @@ limit_to_platform_combinations:
   - native-ubuntu20-gcc10-x86_64
 require_override:
   - libxml2/2.9.13@
+  - zlib/1.2.12@

@@ -3,6 +3,7 @@ versions:
   - 3.22.3
 require_override:
   - openssl/1.1.1n@
+  - zlib/1.2.12@
 build_types:
   - Release
 limit_to_platform_combinations:

@@ -57,7 +57,7 @@ class MariadbConnectorcConan(ConanFile):
         del self.settings.compiler.cppstd
 
     def requirements(self):
-        self.requires("zlib/1.2.11")
+        self.requires("zlib/1.2.12")
         if self.options.get_safe("with_iconv"):
             self.requires("libiconv/1.16")
         if self.options.with_curl:

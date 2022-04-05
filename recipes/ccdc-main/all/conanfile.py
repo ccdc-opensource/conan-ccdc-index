@@ -72,5 +72,5 @@ class CCDCMainConan(ConanFile):
         self.requires("range-v3/0.11.0")
         self.requires("rapidjson/1.1.0")
         self.requires("rstatistics/2.11.1")
-        self.requires("zlib/1.2.11")
+        self.requires("zlib/1.2.12")
         self.requires("zstd/1.5.2")

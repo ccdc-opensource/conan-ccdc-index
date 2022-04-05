@@ -27,7 +27,7 @@ class PovrayConan(ConanFile):
 
     def requirements(self):
         self.requires("boost/1.78.0")
-        self.requires("zlib/1.2.11")
+        self.requires("zlib/1.2.12")
         self.requires("libpng/1.6.37")
         self.requires("libjpeg/9d")
         self.requires("libtiff/4.3.0")
